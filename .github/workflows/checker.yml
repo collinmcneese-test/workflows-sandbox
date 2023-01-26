@@ -1,4 +1,4 @@
-name: local-checker
+name: checker
 
 on:
   pull_request:
