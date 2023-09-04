@@ -38,7 +38,7 @@ jobs:
     environment: ${{ matrix.deploy_env }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Deploy to ${{ matrix.deploy_env }}
         run:
@@ -51,7 +51,7 @@ jobs:
     environment: ${{ github.event.inputs.environment }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Deploy to ${{ github.event.inputs.environment }}
         run:
@@ -67,7 +67,7 @@ jobs:
     environment: ${{ matrix.deploy_env }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Deploy to ${{ matrix.deploy_env }}
         run:
