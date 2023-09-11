@@ -6,4 +6,4 @@ on:
 
 jobs:
   call-echo1:
-    uses: collinmcneese-test/.github/.github/workflows/echo1.yml@v1.0.0
+    uses: collinmcneese-test/.github/.github/workflows/echo1.yml@v2
