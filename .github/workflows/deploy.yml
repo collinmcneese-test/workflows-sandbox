@@ -46,6 +46,7 @@ jobs:
           echo "Deployed to ${{ matrix.deploy_env }}! :rocket:" >> $GITHUB_STEP_SUMMARY
           echo "|Enviorment|URL|Time|" >> $GITHUB_STEP_SUMMARY
           echo "|---|---|---|" >> $GITHUB_STEP_SUMMARY
+          echo "|${{ matrix.deploy_env }}|https://localhost:3001|370ms|"  >> $GITHUB_STEP_SUMMARY
 
   deploy:
     if: github.event_name == 'workflow_dispatch' && !contains(fromJSON('["all", "none"]'), github.event.inputs.environment)
@@ -62,6 +63,7 @@ jobs:
           echo "Deployed to ${{ github.event.inputs.environment }}! :rocket:" >> $GITHUB_STEP_SUMMARY
           echo "|Enviorment|URL|Time|" >> $GITHUB_STEP_SUMMARY
           echo "|---|---|---|" >> $GITHUB_STEP_SUMMARY
+          echo "|${{ github.event.inputs.environment }}|https://localhost:3001|370ms|"  >> $GITHUB_STEP_SUMMARY
 
   deploy-all:
     if: github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'all'
@@ -81,3 +83,4 @@ jobs:
           echo "Deployed to ${{ matrix.deploy_env }}! :rocket:" >> $GITHUB_STEP_SUMMARY
           echo "|Enviorment|URL|Time|" >> $GITHUB_STEP_SUMMARY
           echo "|---|---|---|" >> $GITHUB_STEP_SUMMARY
+          echo "|${{ matrix.deploy_env }}|https://localhost:3001|370ms|"  >> $GITHUB_STEP_SUMMARY
