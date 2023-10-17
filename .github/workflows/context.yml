@@ -2,7 +2,8 @@ name: context
 
 on:
   workflow_dispatch:
-  issues: [created, edited]
+  issues: 
+    types: [created, edited]
 jobs:
   context:
     runs-on: ubuntu-latest
