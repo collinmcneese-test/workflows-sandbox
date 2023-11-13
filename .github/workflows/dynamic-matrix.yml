@@ -51,11 +51,11 @@ jobs:
             const max = 5;
             const randomnumber = Math.floor(Math.random() * (max - min + 1)) + min;
             let returnObject = [];
-            // create an array of objects.  number of objects is based on random number
-            // each object will look like { "name": "matrix1", value: "value1" }
+
             for (let i = 1; i <= randomnumber; i++) {
               returnObject.push({ name: `matrix${i}`, value: `value${i}` });
             }
+
             let summaryMessage = `Used random number ${randomnumber} to create ${returnObject.length} output items`;
             core.summary
                 .addHeading('Output Object Summary')
