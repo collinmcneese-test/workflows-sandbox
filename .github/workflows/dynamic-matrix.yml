@@ -84,11 +84,17 @@ jobs:
     steps:
       - name: Matrix - ${{ matrix.iteration.name }} ${{ matrix.iteration.value }}
         run: echo ${{ matrix.iteration.name }}
-      - uses: actions/checkout@v4
-      - uses: ./.github/workflows/dynamic-matrix.yml
-        with:
-          name: ${{ matrix.iteration.name }}
-          value: ${{ matrix.iteration.value }}
+
+  matrix-object-reusable:
+    needs: output-object
+    strategy:
+      matrix:
+        iteration: ${{ fromJson(needs.output-object.outputs.random-object) }}
+    uses: ./.github/workflows/dynamic-matrix.yml
+    with:
+        name: ${{ matrix.iteration.name }}
+        value: ${{ matrix.iteration.value }}
+
 
   reusable-workflow:
     if: ${{ github.event_name == 'workflow_call' }}
