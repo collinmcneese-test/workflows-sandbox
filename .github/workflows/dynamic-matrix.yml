@@ -2,10 +2,53 @@ name: Dynamic Matrix
 
 on:
   workflow_dispatch:
+    inputs:
+      run:
+        type: choice
+        options:
+          - outputs-static
+          - matrix-array
+          - matrix-object
+          - all
 
 jobs:
+  outputs-static:
+    if: |
+      inputs.run == 'outputs-static' ||
+      inputs.run == 'all'
+    runs-on: ubuntu-latest
+    outputs:
+      json-output: ${{ steps.set-output.outputs.json-output }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: set-output
+        name: Set JSON Output
+        run: |
+          # Read the contents of a json file in this repo
+          json='[{"directory":"dir1","artifact":"name1"},{"directory":"dir2","artifact":"name2"}]'
+          echo "::set-output name=json-output::${json}"
+
+  run-with-json:
+    runs-on: ubuntu-latest
+    needs: outputs-static
+    strategy:
+      matrix:
+        iteration: ${{ fromJson(needs.outputs-static.outputs.json-output) }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          mkdir -p ${{ matrix.iteration.directory }}
+          echo "these are some contents" > ${{ matrix.iteration.directory }}/${{ matrix.iteration.artifact }}.txt
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ matrix.iteration.artifact }}
+          path: ${{ matrix.iteration.directory }}
+
   outputs-array:
-    if: ${{ github.event_name == 'workflow_dispatch' }}
+    if: |
+      inputs.run == 'outputs-array' ||
+      inputs.run == 'all'
     runs-on: ubuntu-latest
     outputs:
       random-number: ${{ steps.random-number.outputs.result }}
@@ -40,7 +83,9 @@ jobs:
         run: echo ${{ matrix.iteration }}
 
   output-object:
-    if: ${{ github.event_name == 'workflow_dispatch' }}
+    if: |
+      inputs.run == 'output-object' ||
+      inputs.run == 'all'
     runs-on: ubuntu-latest
     outputs:
       random-object: ${{ steps.random-object.outputs.result }}
