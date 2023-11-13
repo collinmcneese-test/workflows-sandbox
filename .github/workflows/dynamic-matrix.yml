@@ -20,6 +20,8 @@ jobs:
             for (let i = 1; i <= randomnumber; i++) {
               returnArray.push(`matrix${i}`);
             }
+            core.info(`Random number: ${randomnumber}`);
+            core.info(`Return array: ${returnArray}`);
             return returnArray;
 
   matrix:
