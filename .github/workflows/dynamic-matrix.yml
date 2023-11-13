@@ -2,16 +2,7 @@ name: Dynamic Matrix
 
 on:
   workflow_dispatch:
-  workflow_call:
-    inputs:
-      name:
-        description: 'Name'
-        type: string
-        required: true
-      value:
-        description: 'Value'
-        type: string
-        required: true
+
 jobs:
   outputs-array:
     if: ${{ github.event_name == 'workflow_dispatch' }}
@@ -90,16 +81,7 @@ jobs:
     strategy:
       matrix:
         iteration: ${{ fromJson(needs.output-object.outputs.random-object) }}
-    uses: ./.github/workflows/dynamic-matrix.yml
+    uses: ./.github/workflows/dynamic-called.yml
     with:
         name: ${{ matrix.iteration.name }}
         value: ${{ matrix.iteration.value }}
-
-
-  reusable-workflow:
-    if: ${{ github.event_name == 'workflow_call' }}
-    runs-on: ubuntu-latest
-    name: ${{ github.event.inputs.name }} / ${{ github.event.inputs.value }}
-    steps:
-      - name: Reusable Workflow - ${{ github.event.inputs.name }}
-        run: echo ${{ github.event.inputs.name }} ${{ github.event.inputs.value }}
