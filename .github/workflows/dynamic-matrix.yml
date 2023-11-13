@@ -26,7 +26,7 @@ jobs:
         run: |
           # Read the contents of a json file in this repo
           json='[{"directory":"dir1","artifact":"name1"},{"directory":"dir2","artifact":"name2"}]'
-          echo "::set-output name=json-output::${json}"
+          echo "json-output=${json}" >> $GITHUB_OUTPUT
 
   run-with-json:
     runs-on: ubuntu-latest
