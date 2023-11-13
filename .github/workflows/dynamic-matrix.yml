@@ -7,15 +7,14 @@ jobs:
   outputs:
     runs-on: ubuntu-latest
     outputs:
-      random-number: ${{ steps.random-number.outputs }}
+      random-number: ${{ steps.random-number.outputs.result }}
     steps:
       - id: random-number
-        uses: actions/github-script@v3
+        uses: actions/github-script@v6
         with:
           script: |
             const min = 1;
             const max = 5;
-            // generate an array of strings such as ['matrix1', matrix2', 'matrix3'] based on the random number
             const randomnumber = Math.floor(Math.random() * (max - min + 1)) + min;
             let returnArray = [];
             for (let i = 1; i <= randomnumber; i++) {
