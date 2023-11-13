@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  outputs:
+  outputs-array:
     runs-on: ubuntu-latest
     outputs:
       random-number: ${{ steps.random-number.outputs.result }}
@@ -22,18 +22,54 @@ jobs:
             }
             let summaryMessage = `Used random number ${randomnumber} to create ${returnArray.length} output items`;
             core.summary
-                .addHeading('Output Summary')
+                .addHeading('Output Array Summary')
                 .addRaw(summaryMessage)
                 .write();
 
             return returnArray;
 
-  matrix:
-    needs: outputs
+  matrix-array:
+    needs: outputs-array
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        iteration: ${{ fromJson(needs.outputs.outputs.random-number) }}
+        iteration: ${{ fromJson(needs.outputs-array.outputs.random-number) }}
     steps:
       - name: Matrix - ${{ matrix.iteration }}
         run: echo ${{ matrix.iteration }}
+
+  output-object:
+    runs-on: ubuntu-latest
+    outputs:
+      random-object: ${{ steps.random-object.outputs.result }}
+    steps:
+      - id: random-object
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const min = 1;
+            const max = 5;
+            const randomnumber = Math.floor(Math.random() * (max - min + 1)) + min;
+            let returnObject = [];
+            // create an array of objects.  number of objects is based on random number
+            // each object will look like { "name": "matrix1", value: "value1" }
+            for (let i = 1; i <= randomnumber; i++) {
+              returnObject.push({ name: `matrix${i}`, value: `value${i}` });
+            }
+            let summaryMessage = `Used random number ${randomnumber} to create ${returnObject.length} output items`;
+            core.summary
+                .addHeading('Output Object Summary')
+                .addRaw(summaryMessage)
+                .write();
+
+            return returnObject;
+
+  matrix-object:
+    needs: output-object
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        iteration: ${{ fromJson(needs.output-object.outputs.random-object) }}
+    steps:
+      - name: Matrix - ${{ matrix.iteration.name }} ${{ matrix.iteration.value }}
+        run: echo ${{ matrix.iteration.name }}
