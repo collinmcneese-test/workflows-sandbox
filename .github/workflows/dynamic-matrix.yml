@@ -20,8 +20,12 @@ jobs:
             for (let i = 1; i <= randomnumber; i++) {
               returnArray.push(`matrix${i}`);
             }
-            core.info(`Random number: ${randomnumber}`);
-            core.info(`Return array: ${returnArray}`);
+            let summaryMessage = `Used random number ${randomnumber} to create ${returnArray.length} output items`;
+            core.summary
+                .addHeading('Output Summary')
+                .addRaw(summaryMessage)
+                .write();
+
             return returnArray;
 
   matrix:
