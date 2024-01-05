@@ -27,12 +27,42 @@ jobs:
               if (job.conclusion === 'failure') {
                 let result = {
                   name: job.name,
-                  run_id: job.run_id,
+                  job_id: job.id,
                   check_run_url: job.check_run_url,
                 };
                 response.push(result);
               }
             }
             return response;
-      - name: Retry jobs
-        run: echo "${{ steps.job-analysis.outputs.result }}" | jq
+      - name: Analyze Check Runs
+        id: check-run-analysis
+        uses: actions/github-script@v7
+        with:
+          script: |
+            let response = false;
+            let jobs = ${{ fromJson(steps.job-analysis.outputs.result) }};
+            // parse the checkruns annotations.message and if it contains apple, set response to true
+            for (let job of jobs) {
+              let annotations = await github.rest.checks.listAnnotations({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                check_run_id: job.job_id
+              });
+              let messages = annotations.find(({ message }) => message.includes("with exit code 1"));
+              if (messages.length > 0) {
+                response = true;
+                break;
+              }
+            }
+            return response;
+      - name: Retry Workflow
+        if: steps.check-run-analysis.outputs.result == true
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const response = await github.rest.actions.reRunWorkflow({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              run_id: context.payload.workflow_run.id
+            });
+            return response;
