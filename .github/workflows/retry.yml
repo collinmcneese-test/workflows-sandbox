@@ -7,13 +7,10 @@ on:
     types:
       - completed
 
-env:
-  retry-limit: 3
-
 jobs:
   retry:
     runs-on: ubuntu-latest
-    if: github.event.workflow_run.conclusion == 'failure' && github.event.workflow_run.run_attempt < github.env.retry-limit
+    if: github.event.workflow_run.conclusion == 'failure' && github.event.workflow_run.run_attempt < 3
     steps:
       - name: Analyze jobs
         id: job-analysis
@@ -84,9 +81,10 @@ jobs:
         uses: collinmcneese/actions-rate-limit-reporter@main
         with:
           access-token: ${{ secrets.GITHUB_TOKEN }}
+
   exhaust:
     runs-on: ubuntu-latest
-    if: github.event.workflow_run.conclusion == 'failure' && github.event.workflow_run.run_attempt >= github.env.retry-limit
+    if: github.event.workflow_run.conclusion == 'failure' && github.event.workflow_run.run_attempt >= 3
     steps:
       - name: Exhausted
         run: |
