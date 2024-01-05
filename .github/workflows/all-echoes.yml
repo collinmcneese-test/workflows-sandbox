@@ -1,7 +1,6 @@
 name: all-echoes
 
 on:
-  push:
   workflow_dispatch:
 
 jobs:

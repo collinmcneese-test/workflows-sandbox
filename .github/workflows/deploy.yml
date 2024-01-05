@@ -5,9 +5,6 @@
 name: Deploy
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
     # This workflow can be manually triggered from the Actions tab
     # by clicking the 'Run workflow' dropdown next to the workflow file name

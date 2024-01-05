@@ -2,7 +2,6 @@ name: rate-limit
 
 on:
   workflow_dispatch:
-  push:
 
 jobs:
   check-rate-limit:
