@@ -41,21 +41,20 @@ jobs:
           script: |
             let response = false;
             let jobs = ${{ steps.job-analysis.outputs.result }};
-            // parse the checkruns annotations.message and if it contains apple, set response to true
             for (let job of jobs) {
               let annotations = await github.rest.checks.listAnnotations({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 check_run_id: job.job_id
               });
-              let messages = annotations.data.find(({ message }) => message.includes("with exit code 1"));
-              console.log(messages);
-              if (messages.length > 0) {
+              let messages = await annotations.find(({ message }) => message.includes("with exit code 1"));
+              core.info(messages);
+              if (messages) {
                 response = true;
                 break;
               }
             }
-            console.log(response);
+            core.info(response);
             return response;
       - name: Retry Workflow
         if: steps.check-run-analysis.outputs.result == true
