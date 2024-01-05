@@ -40,7 +40,7 @@ jobs:
         with:
           script: |
             let response = false;
-            let jobs = ${{ fromJson(steps.job-analysis.outputs.result) }};
+            let jobs = ${{ steps.job-analysis.outputs.result }};
             // parse the checkruns annotations.message and if it contains apple, set response to true
             for (let job of jobs) {
               let annotations = await github.rest.checks.listAnnotations({
