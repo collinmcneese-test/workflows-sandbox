@@ -49,11 +49,13 @@ jobs:
                 check_run_id: job.job_id
               });
               let messages = annotations.data.find(({ message }) => message.includes("with exit code 1"));
+              console.log(messages);
               if (messages.length > 0) {
                 response = true;
                 break;
               }
             }
+            console.log(response);
             return response;
       - name: Retry Workflow
         if: steps.check-run-analysis.outputs.result == true
