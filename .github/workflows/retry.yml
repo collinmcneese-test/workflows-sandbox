@@ -88,4 +88,4 @@ jobs:
     steps:
       - name: Exhausted
         run: |
-          echo "Workflow exhausted after ${{ github.env.retry-limit }} attempts." >> $GITHUB_STEP_SUMMARY
+          echo "Workflow exhausted after 3 attempts." >> $GITHUB_STEP_SUMMARY
