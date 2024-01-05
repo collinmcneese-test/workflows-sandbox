@@ -7,10 +7,13 @@ on:
     types:
       - completed
 
+env:
+  retry-limit: 3
+
 jobs:
   retry:
     runs-on: ubuntu-latest
-    if: github.event.workflow_run.conclusion == 'failure' && github.event.workflow_run.run_attempt < 3
+    if: github.event.workflow_run.conclusion == 'failure' && github.event.workflow_run.run_attempt < github.env.retry-limit
     steps:
       - name: Analyze jobs
         id: job-analysis
@@ -18,11 +21,13 @@ jobs:
         with:
           script: |
             let response = [];
+
             const jobs = await github.rest.actions.listJobsForWorkflowRun({
               owner: context.repo.owner,
               repo: context.repo.repo,
               run_id: context.payload.workflow_run.id
             });
+
             for (let job of jobs.data.jobs) {
               if (job.conclusion === 'failure') {
                 let result = {
@@ -30,10 +35,13 @@ jobs:
                   job_id: job.id,
                   check_run_url: job.check_run_url,
                 };
+
                 response.push(result);
               }
             }
+
             return response;
+
       - name: Analyze Check Runs
         id: check-run-analysis
         uses: actions/github-script@v7
@@ -48,15 +56,17 @@ jobs:
                 repo: context.repo.repo,
                 check_run_id: job.job_id
               });
+
               let messages = await annotations.data.find(({ message }) => message.includes("with exit code 1"));
-              core.info(messages);
+
               if (messages) {
                 response = "true";
                 break;
               }
             }
-            core.info(response);
+
             return response;
+
       - name: Retry Workflow
         if: steps.check-run-analysis.outputs.result == 'true'
         uses: actions/github-script@v7
@@ -67,8 +77,17 @@ jobs:
               repo: context.repo.repo,
               run_id: context.payload.workflow_run.id
             });
+
             return response;
+
       - name: Report rate-limit
         uses: collinmcneese/actions-rate-limit-reporter@main
         with:
           access-token: ${{ secrets.GITHUB_TOKEN }}
+  exhaust:
+    runs-on: ubuntu-latest
+    if: github.event.workflow_run.conclusion == 'failure' && github.event.workflow_run.run_attempt >= github.env.retry-limit
+    steps:
+      - name: Exhausted
+        run: |
+          echo "Workflow exhausted after ${{ github.env.retry-limit }} attempts." >> $GITHUB_STEP_SUMMARY
