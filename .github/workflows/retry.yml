@@ -47,7 +47,7 @@ jobs:
                 repo: context.repo.repo,
                 check_run_id: job.job_id
               });
-              let messages = await annotations.find(({ message }) => message.includes("with exit code 1"));
+              let messages = await annotations.data.find(({ message }) => message.includes("with exit code 1"));
               core.info(messages);
               if (messages) {
                 response = true;
