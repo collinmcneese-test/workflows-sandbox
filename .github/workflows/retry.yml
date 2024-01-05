@@ -1,0 +1,17 @@
+name: Retry Workflow
+
+on:
+  workflow_run:
+    types:
+      - completed
+
+jobs:
+  retry:
+    runs-on: ubuntu-latest
+    if: github.event.workflow_run.conclusion == 'failure'
+    steps:
+      - name: log context
+        uses: actions/github-script@v7
+        with:
+          script: |
+            console.log(JSON.stringify(context, null, 2))
