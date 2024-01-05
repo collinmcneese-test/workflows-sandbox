@@ -38,6 +38,7 @@ jobs:
         id: check-run-analysis
         uses: actions/github-script@v7
         with:
+          result-encoding: string
           script: |
             let response = "false";
             let jobs = ${{ steps.job-analysis.outputs.result }};
@@ -57,7 +58,7 @@ jobs:
             core.info(response);
             return response;
       - name: Retry Workflow
-        if: steps.check-run-analysis.outputs.result == true
+        if: steps.check-run-analysis.outputs.result == 'true'
         uses: actions/github-script@v7
         with:
           script: |
