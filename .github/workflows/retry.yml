@@ -39,7 +39,7 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            let response = false;
+            let response = "false";
             let jobs = ${{ steps.job-analysis.outputs.result }};
             for (let job of jobs) {
               let annotations = await github.rest.checks.listAnnotations({
@@ -50,7 +50,7 @@ jobs:
               let messages = await annotations.data.find(({ message }) => message.includes("with exit code 1"));
               core.info(messages);
               if (messages) {
-                response = true;
+                response = "true";
                 break;
               }
             }
