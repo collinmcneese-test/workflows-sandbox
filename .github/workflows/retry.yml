@@ -2,6 +2,8 @@ name: Retry Workflow
 
 on:
   workflow_run:
+    workflows:
+      - failure-workflow
     types:
       - completed
 
