@@ -87,7 +87,7 @@ jobs:
         iteration: ${{ fromJson(needs.outputs-array.outputs.random-number) }}
     steps:
       - name: Matrix - ${{ matrix.iteration }}
-        run: echo ${{ matrix.iteration }}
+        run: echo ${{ matrix.iteration }} >> $GITHUB_STEP_SUMMARY
 
   output-object:
     if: |
