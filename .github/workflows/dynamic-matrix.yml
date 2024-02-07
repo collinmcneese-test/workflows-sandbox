@@ -137,3 +137,12 @@ jobs:
     with:
         name: ${{ matrix.iteration.name }}
         value: ${{ matrix.iteration.value }}
+
+  complete:
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Report rate-limit
+        uses: collinmcneese/actions-rate-limit-reporter@main
+        with:
+          access-token: ${{ secrets.GITHUB_TOKEN }}
