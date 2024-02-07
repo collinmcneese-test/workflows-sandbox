@@ -140,6 +140,12 @@ jobs:
 
   complete:
     if: ${{ always() }}
+    needs:
+      - run-with-json
+      - after-run-with-json
+      - matrix-array
+      - matrix-object
+      - matrix-object-reusable
     runs-on: ubuntu-latest
     steps:
       - name: Report rate-limit
