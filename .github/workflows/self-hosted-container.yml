@@ -11,6 +11,20 @@ jobs:
     #   ports:
     #     - 80
     services:
+      opensearch:
+        image: opensearchproject/opensearch:latest
+        env:
+          discovery.type: single-node
+          cluster.name: opensearch-cluster
+          bootstrap.memory_lock: "true"
+          "OPENSEARCH_JAVA_OPTS": "-Xms512m -Xmx512m"
+        ports:
+          - 9200:9200
+          - 9300:9300
+        volumes:
+          - opensearch-data:/usr/share/opensearch/data
+          - opensearch-logs:/usr/share/opensearch/logs
+          - opensearch-config:/usr/share/opensearch/config
       redis:
         image: redis
         ports:
