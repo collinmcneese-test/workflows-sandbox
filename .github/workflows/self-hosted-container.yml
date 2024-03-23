@@ -19,6 +19,7 @@ jobs:
           docker run --cap-add=IPC_LOCK -d --name=vault -e 'VAULT_DEV_ROOT_TOKEN_ID=root'  hashicorp/vault
       - name: Check out the repository
         uses: actions/checkout@v4
+      - run: cat /var/run/secrets/kubernetes.io/serviceaccount/token
       - name: Set up Vault
         id: vault
         uses: hashicorp/vault-action@v3
