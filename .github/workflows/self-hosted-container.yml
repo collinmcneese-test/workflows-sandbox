@@ -10,20 +10,20 @@ jobs:
         ports:
           - 80:80
     container:
-      # image: ghcr.io/collinmcneese/github_actions_runners-arc:2.314.1
-      image: ubuntu:22.04
+      image: ghcr.io/collinmcneese/github_actions_runners-arc:2.314.1
+      # image: ubuntu:22.04
       volumes:
         - /run/docker/docker.sock:/run/docker/docker.sock
       env:
         DOCKER_HOST: unix:///run/docker/docker.sock
     steps:
-      - name: docker ps
-        run: docker ps
+      # - name: docker ps
+      #   run: docker ps
+      - name: Check out the repository
+        uses: actions/checkout@v4
       - name: docker run vault
         run: |
           docker run --cap-add=IPC_LOCK -d --name=vault -e 'VAULT_DEV_ROOT_TOKEN_ID=root'  hashicorp/vault
-      - name: Check out the repository
-        uses: actions/checkout@v4
       - run: cat /var/run/secrets/kubernetes.io/serviceaccount/token
       - name: Set up Vault
         id: vault
