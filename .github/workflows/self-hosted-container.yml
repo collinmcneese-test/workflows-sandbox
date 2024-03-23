@@ -6,7 +6,22 @@ jobs:
     runs-on: arc-runner-set-collinmcneese-test
     steps:
       - run: |
-          ls -la
+          cd /home/runner/work
+          find .
+          ls -la /
+  externals-container:
+    runs-on: arc-runner-set-collinmcneese-test
+    container:
+      image: ghcr.io/actions-runner-controller/actions-runner-controller/actions-runner-dind:latest
+      volumes:
+        - /run/docker/docker.sock:/run/docker/docker.sock
+      env:
+        DOCKER_HOST: unix:///run/docker/docker.sock
+      options: --privileged
+    steps:
+      - run: |
+          cd /home/runner/work
+          find .
           ls -la /
   test-with-job-container:
     runs-on: arc-runner-set-collinmcneese-test
