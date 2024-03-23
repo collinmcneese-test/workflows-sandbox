@@ -4,13 +4,19 @@ on:
 jobs:
   container-test-job:
     runs-on: arc-runner-set-collinmcneese-test
-    container:
-      image: node:20
-      env:
-        NODE_ENV: development
-      ports:
+    # container:
+    #   image: node:20
+    #   env:
+    #     NODE_ENV: development
+    #   ports:
+    #     - 80
+    services:
+      node:
+        image: node:20
+        env:
+          NODE_ENV: development
+        ports:
         - 80
-    # services:
     #   opensearch:
     #     image: opensearchproject/opensearch:latest
     #     env:
