@@ -3,24 +3,18 @@ on:
   workflow_dispatch:
 jobs:
   vault-test:
-    # Loads vault image as a service in development mode then uses the
-    # hashicorp/vault-action to interact with the vault server
     runs-on: arc-runner-set-collinmcneese-test
-    # services:
-    #   vault:
-    #     image: hashicorp/vault
-    #     ports:
-    #       - 8200:8200
+    services:
+      nginx:
+        image: nginx:latest
+        ports:
+          - 80:80
     container:
       image: ghcr.io/actions/actions-runner:latest
       volumes:
         - /run/docker/docker.sock:/run/docker/docker.sock
       env:
         DOCKER_HOST: unix:///run/docker/docker.sock
-      # env:
-      #   NODE_ENV: development
-      # ports:
-      #   - 80
     steps:
       - name: docker ps
         run: docker ps
