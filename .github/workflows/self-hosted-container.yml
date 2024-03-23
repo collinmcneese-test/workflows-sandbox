@@ -36,34 +36,34 @@ jobs:
       - name: Check out the repository
         uses: actions/checkout@v4
 
-  # test-with-job-container:
-  #   runs-on: arc-runner-set-collinmcneese-test
-  #   container:
-  #     image: ghcr.io/actions-runner-controller/actions-runner-controller/actions-runner-dind:latest
-  #     volumes:
-  #       - /run/docker/docker.sock:/run/docker/docker.sock
-  #     env:
-  #       DOCKER_HOST: unix:///run/docker/docker.sock
-  #     options: --privileged
-  #   steps:
-  #     # - name: docker ps
-  #     #   run: docker ps
-  #     - name: Check out the repository
-  #       uses: actions/checkout@v4
-  #     - name: docker run vault
-  #       run: |
-  #         docker run --cap-add=IPC_LOCK -d --name=vault -e 'VAULT_DEV_ROOT_TOKEN_ID=root'  hashicorp/vault
-  #     - run: cat /var/run/secrets/kubernetes.io/serviceaccount/token
-  #     - name: Set up Vault
-  #       id: vault
-  #       uses: hashicorp/vault-action@v3
-  #       with:
-  #         url: http://localhost:8200
-  #         token: root
-  #         # secrets: |
-  #         #   secret/data/my-secret
-  #     - name: Get the secret
-  #       run: echo ${{ steps.vault.outputs.secret }}
+  test-with-job-container:
+    runs-on: arc-runner-set-collinmcneese-test
+    container:
+      image: alpine:latest
+      volumes:
+        - /run/docker/docker.sock:/run/docker/docker.sock
+      env:
+        DOCKER_HOST: unix:///run/docker/docker.sock
+      options: --privileged
+    steps:
+      # - name: docker ps
+      #   run: docker ps
+      - name: Check out the repository
+        uses: actions/checkout@v4
+      - name: docker run vault
+        run: |
+          docker run --cap-add=IPC_LOCK -d --name=vault -e 'VAULT_DEV_ROOT_TOKEN_ID=root'  hashicorp/vault
+      - run: cat /var/run/secrets/kubernetes.io/serviceaccount/token
+      - name: Set up Vault
+        id: vault
+        uses: hashicorp/vault-action@v3
+        with:
+          url: http://localhost:8200
+          token: root
+          # secrets: |
+          #   secret/data/my-secret
+      - name: Get the secret
+        run: echo ${{ steps.vault.outputs.secret }}
   # test-with-services:
   #   runs-on: arc-runner-set-collinmcneese-test
   #   services:
