@@ -22,8 +22,8 @@ jobs:
         with:
           url: http://localhost:8200
           token: root
-          secrets: |
-            secret/data/my-secret
+          # secrets: |
+          #   secret/data/my-secret
       - name: Get the secret
         run: echo ${{ steps.vault.outputs.secret }}
   container-test-job:
