@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Set up Vault
         id: vault
-        uses: hashicorp/vault-action@v2
+        uses: hashicorp/vault-action@v3
         with:
           url: http://localhost:8200
           token: root
