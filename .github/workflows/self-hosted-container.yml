@@ -13,6 +13,8 @@ jobs:
     #       - 8200:8200
     container:
       image: ghcr.io/actions/actions-runner:latest
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
       # env:
       #   NODE_ENV: development
       # ports:
