@@ -36,5 +36,10 @@ jobs:
     #     ports:
     #       - 6379:6379
     steps:
-      - name: Check for dockerenv file
-        run: (ls /.dockerenv && echo Found dockerenv) || (echo No dockerenv)
+      - name: docker ps
+        run: docker ps
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: which node
