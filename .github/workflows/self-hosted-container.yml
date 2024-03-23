@@ -8,7 +8,7 @@ jobs:
     runs-on: arc-runner-set-collinmcneese-test
     services:
       vault:
-        image: vault
+        image: hashicorp/vault
         ports:
           - 8200:8200
     steps:
