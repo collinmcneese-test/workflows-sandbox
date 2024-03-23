@@ -6,8 +6,8 @@ jobs:
     runs-on: arc-runner-set-collinmcneese-test
     steps:
       - run: |
-          find /__w/
-          find /__e/
+          ls -al /__w/
+          ls -al /__e/
   externals-container:
     runs-on: arc-runner-set-collinmcneese-test
     container:
@@ -19,8 +19,8 @@ jobs:
       options: --privileged
     steps:
       - run: |
-          find /__w/
-          find /__e/
+          ls -al  /__w/
+          ls -al  /__e/
   test-with-job-container:
     runs-on: arc-runner-set-collinmcneese-test
     services:
