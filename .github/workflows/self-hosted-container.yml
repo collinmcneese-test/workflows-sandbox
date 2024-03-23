@@ -2,6 +2,30 @@ name: self-hosted-container
 on:
   workflow_dispatch:
 jobs:
+  vault-test:
+    # Loads vault image as a service in development mode then uses the
+    # hashicorp/vault-action to interact with the vault server
+    runs-on: arc-runner-set-collinmcneese-test
+    services:
+      vault:
+        image: vault
+        ports:
+          - 8200:8200
+    steps:
+      - name: docker ps
+        run: docker ps
+      - name: Check out the repository
+        uses: actions/checkout@v4
+      - name: Set up Vault
+        id: vault
+        uses: hashicorp/vault-action@v2
+        with:
+          url: http://localhost:8200
+          token: root
+          secrets: |
+            secret/data/my-secret
+      - name: Get the secret
+        run: echo ${{ steps.vault.outputs.secret }}
   container-test-job:
     runs-on: arc-runner-set-collinmcneese-test
     # container:
