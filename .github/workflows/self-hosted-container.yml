@@ -2,7 +2,7 @@ name: self-hosted-container
 on:
   workflow_dispatch:
 jobs:
-  vault-test:
+  test-with-job-container:
     runs-on: arc-runner-set-collinmcneese-test
     services:
       nginx:
@@ -15,7 +15,7 @@ jobs:
         - /run/docker/docker.sock:/run/docker/docker.sock
       env:
         DOCKER_HOST: unix:///run/docker/docker.sock
-      options: --privileged --platform linux/amd64
+      options: --platform linux/amd64
     steps:
       # - name: docker ps
       #   run: docker ps
@@ -35,14 +35,8 @@ jobs:
           #   secret/data/my-secret
       - name: Get the secret
         run: echo ${{ steps.vault.outputs.secret }}
-  # container-test-job:
+  # test-with-services:
   #   runs-on: arc-runner-set-collinmcneese-test
-  #   # container:
-  #   #   image: node:20
-  #   #   env:
-  #   #     NODE_ENV: development
-  #   #   ports:
-  #   #     - 80
   #   services:
   #     node:
   #       image: node:20
