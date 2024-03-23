@@ -10,7 +10,7 @@ jobs:
         ports:
           - 80:80
     container:
-      image: ghcr.io/actions/actions-runner:latest
+      image: ghcr.io/collinmcneese/github_actions_runners-arc:2.314.1
       volumes:
         - /run/docker/docker.sock:/run/docker/docker.sock
       env:
