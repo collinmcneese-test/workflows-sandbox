@@ -2,38 +2,40 @@ name: self-hosted-container
 on:
   workflow_dispatch:
 jobs:
-  # externals:
-  #   runs-on: arc-runner-set-collinmcneese-test
-  #   steps:
-  #     - run: |
-  #         ls -al /__w/ || echo "no /__w/"
-  #         ls -al /__e/ || echo "no /__e/"
-  #         ls -al /home/runner || echo "no /home/runner"
-  #         ls -al /home/runner/externals || echo "no /home/runner/externals"
-  #         env
-  # externals-container:
-  #   runs-on: arc-runner-set-collinmcneese-test
-  #   container:
-  #     image: ghcr.io/actions-runner-controller/actions-runner-controller/actions-runner-dind:latest
-  #     volumes:
-  #       - /run/docker/docker.sock:/run/docker/docker.sock
-  #     env:
-  #       DOCKER_HOST: unix:///run/docker/docker.sock
-  #     options: --privileged
-  #   steps:
-  #     - run: |
-  #         ls -al /__w/ || echo "no /__w/"
-  #         ls -al /__e/ || echo "no /__e/"
-  #         ls -al /home/runner || echo "no /home/runner"
-  #         ls -al /home/runner/externals || echo "no /home/runner/externals"
-  #         env
+  externals:
+    runs-on: arc-runner-set-collinmcneese-test
+    steps:
+      - run: |
+          echo "fetching __w"
+          ls -al /__w/ || echo "no /__w/"
+          echo "fetching __e"
+          ls -al /__e/ || echo "no /__e/"
+          echo "fetching /home/runner"
+          ls -al /home/runner || echo "no /home/runner"
+          echo "fetching /home/runner/externals"
+          ls -al /home/runner/externals || echo "no /home/runner/externals"
+  externals-container:
+    runs-on: arc-runner-set-collinmcneese-test
+    container:
+      image: ghcr.io/actions-runner-controller/actions-runner-controller/actions-runner-dind:latest
+      volumes:
+        - /run/docker/docker.sock:/run/docker/docker.sock
+      env:
+        DOCKER_HOST: unix:///run/docker/docker.sock
+      options: --privileged
+    steps:
+      - run: |
+          echo "fetching __w"
+          ls -al /__w/ || echo "no /__w/"
+          echo "fetching __e"
+          ls -al /__e/ || echo "no /__e/"
+          echo "fetching /home/runner"
+          ls -al /home/runner || echo "no /home/runner"
+          echo "fetching /home/runner/externals"
+          ls -al /home/runner/externals || echo "no /home/runner/externals"
+
   test-with-job-container:
     runs-on: arc-runner-set-collinmcneese-test
-    services:
-      nginx:
-        image: nginx:latest
-        ports:
-          - 80:80
     container:
       image: ghcr.io/actions-runner-controller/actions-runner-controller/actions-runner-dind:latest
       volumes:
