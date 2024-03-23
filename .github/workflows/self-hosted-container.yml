@@ -14,7 +14,9 @@ jobs:
     container:
       image: ghcr.io/actions/actions-runner:latest
       volumes:
-        - /var/run/docker.sock:/var/run/docker.sock
+        - /run/docker/docker.sock:/run/docker/docker.sock
+      env:
+        DOCKER_HOST: unix:///run/docker/docker.sock
       # env:
       #   NODE_ENV: development
       # ports:
