@@ -6,8 +6,10 @@ jobs:
     runs-on: arc-runner-set-collinmcneese-test
     steps:
       - run: |
-          ls -al /__w/
-          ls -al /__e/
+          ls -al /__w/ || echo "no /__w/"
+          ls -al /__e/ || echo "no /__e/"
+          ls -al /home/runner || echo "no /home/runner"
+          env
   externals-container:
     runs-on: arc-runner-set-collinmcneese-test
     container:
@@ -19,8 +21,10 @@ jobs:
       options: --privileged
     steps:
       - run: |
-          ls -al  /__w/
-          ls -al  /__e/
+          ls -al /__w/ || echo "no /__w/"
+          ls -al /__e/ || echo "no /__e/"
+          ls -al /home/runner || echo "no /home/runner"
+          env
   test-with-job-container:
     runs-on: arc-runner-set-collinmcneese-test
     services:
