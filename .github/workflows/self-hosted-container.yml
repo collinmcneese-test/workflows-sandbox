@@ -11,6 +11,12 @@ jobs:
     #     image: hashicorp/vault
     #     ports:
     #       - 8200:8200
+    container:
+      image: node:20
+      env:
+        NODE_ENV: development
+      ports:
+        - 80
     steps:
       - name: docker ps
         run: docker ps
