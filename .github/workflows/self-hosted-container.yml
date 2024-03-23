@@ -6,14 +6,17 @@ jobs:
     # Loads vault image as a service in development mode then uses the
     # hashicorp/vault-action to interact with the vault server
     runs-on: arc-runner-set-collinmcneese-test
-    services:
-      vault:
-        image: hashicorp/vault
-        ports:
-          - 8200:8200
+    # services:
+    #   vault:
+    #     image: hashicorp/vault
+    #     ports:
+    #       - 8200:8200
     steps:
       - name: docker ps
         run: docker ps
+      - name: docker run vault
+        run: |
+          docker run --cap-add=IPC_LOCK -d --name=vault -e 'VAULT_DEV_ROOT_TOKEN_ID=root'  hashicorp/vault
       - name: Check out the repository
         uses: actions/checkout@v4
       - name: Set up Vault
