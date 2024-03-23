@@ -55,7 +55,7 @@ jobs:
     steps:
       - name: Check out the repository
         uses: actions/checkout@v4
-      - run: cat /var/run/secrets/kubernetes.io/serviceaccount/token
+      # - run: cat /var/run/secrets/kubernetes.io/serviceaccount/token
       - name: Set up Vault
         id: vault
         uses: hashicorp/vault-action@v3
@@ -66,38 +66,38 @@ jobs:
           #   secret/data/my-secret
       - name: Get the secret
         run: echo ${{ steps.vault.outputs.secret }}
-  # test-with-services:
-  #   runs-on: arc-runner-set-collinmcneese-test
-  #   services:
-  #     node:
-  #       image: node:20
-  #       env:
-  #         NODE_ENV: development
-  #       ports:
-  #       - 80
-  #   #   opensearch:
-  #   #     image: opensearchproject/opensearch:latest
-  #   #     env:
-  #   #       discovery.type: single-node
-  #   #       cluster.name: opensearch-cluster
-  #   #       bootstrap.memory_lock: "true"
-  #   #       "OPENSEARCH_JAVA_OPTS": "-Xms512m -Xmx512m"
-  #   #     ports:
-  #   #       - 9200:9200
-  #   #       - 9300:9300
-  #   #     volumes:
-  #   #       - opensearch-data:/usr/share/opensearch/data
-  #   #       - opensearch-logs:/usr/share/opensearch/logs
-  #   #       - opensearch-config:/usr/share/opensearch/config
-  #   #   redis:
-  #   #     image: redis
-  #   #     ports:
-  #   #       - 6379:6379
-  #   steps:
-  #     - name: docker ps
-  #       run: docker ps
-  #     - uses: actions/checkout@v4
-  #     - uses: actions/setup-node@v4
-  #       with:
-  #         node-version: 20
-  #     - run: which node
+  test-with-services:
+    runs-on: arc-runner-set-collinmcneese-test
+    services:
+      node:
+        image: node:20
+        env:
+          NODE_ENV: development
+        ports:
+        - 80
+    #   opensearch:
+    #     image: opensearchproject/opensearch:latest
+    #     env:
+    #       discovery.type: single-node
+    #       cluster.name: opensearch-cluster
+    #       bootstrap.memory_lock: "true"
+    #       "OPENSEARCH_JAVA_OPTS": "-Xms512m -Xmx512m"
+    #     ports:
+    #       - 9200:9200
+    #       - 9300:9300
+    #     volumes:
+    #       - opensearch-data:/usr/share/opensearch/data
+    #       - opensearch-logs:/usr/share/opensearch/logs
+    #       - opensearch-config:/usr/share/opensearch/config
+    #   redis:
+    #     image: redis
+    #     ports:
+    #       - 6379:6379
+    steps:
+      - name: docker ps
+        run: docker ps
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: which node
