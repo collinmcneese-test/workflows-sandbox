@@ -2,6 +2,12 @@ name: self-hosted-container
 on:
   workflow_dispatch:
 jobs:
+  externals:
+    runs-on: arc-runner-set-collinmcneese-test
+    steps:
+      - run: |
+          ls -la
+          ls -la /
   test-with-job-container:
     runs-on: arc-runner-set-collinmcneese-test
     services:
