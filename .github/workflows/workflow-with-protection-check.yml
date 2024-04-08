@@ -37,7 +37,7 @@ jobs:
     needs: check
     if: needs.check.outputs.result == 'true'
     environment:
-      name: production
+      name: ${{ github.event.inputs.environment }}
     runs-on: ubuntu-latest
     steps:
       - name: Deploy
