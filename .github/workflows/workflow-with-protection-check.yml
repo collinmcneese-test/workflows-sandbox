@@ -35,8 +35,11 @@ jobs:
             return data.protection_rules.length > 0;
 
   deploy:
+    # Depend on the check job to get the result of the check
     needs: check
+    # only run the job if the check job returns true
     if: needs.check.outputs.result == 'true'
+    # Target the selected environment, inheriting environment protection rules
     environment:
       name: ${{ github.event.inputs.environment }}
     runs-on: ubuntu-latest
