@@ -23,6 +23,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
+            // Fetch data for the environment
             let { data } = await github.request('GET /repos/{owner}/{repo}/environments/{environment_name}', {
               owner: context.repo.owner,
               repo: context.repo.repo,
