@@ -13,7 +13,7 @@ jobs:
         run: echo "success"
       - name: notify
         if: always()
-        run: echo ${{ job.status }} >> GITHUB_STEP_SUMMARY
+        run: echo "notify result - ${{ job.status }}" >> $GITHUB_STEP_SUMMARY
   notify-failure:
     runs-on: ubuntu-latest
     steps:
@@ -23,4 +23,4 @@ jobs:
         run: echo "failure"
       - name: notify
         if: always()
-        run: echo ${{ job.status }} >> GITHUB_STEP_SUMMARY
+        run: echo "notify result - ${{ job.status }}" >> $GITHUB_STEP_SUMMARY
