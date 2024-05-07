@@ -14,7 +14,6 @@ jobs:
       with:
         script: |
           console.log(context)
-          console.log(context.issue.body)
-          console.log(github.event.issue.body)
+          console.log(context.payload.issue.body)
   wf:
     uses: ./.github/workflows/issue-workflow-called.yml
