@@ -7,4 +7,4 @@ jobs:
   pr-edit:
     runs-on: ubuntu-latest
     steps:
-    - name: echo ${{ github.event.pull_request }}
+    - run: echo ${{ github.event.pull_request }}
