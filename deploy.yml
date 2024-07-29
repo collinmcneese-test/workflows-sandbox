@@ -1,0 +1,86 @@
+# deploy.yml
+
+# This is a workflow which is trigger by workflow_dispatch event
+# to deploy the application to the selected environment
+name: Deploy
+
+permissions:
+  contents: read
+
+on:
+  workflow_dispatch:
+    # This workflow can be manually triggered from the Actions tab
+    # by clicking the 'Run workflow' dropdown next to the workflow file name
+    # Inputs to choose target environment for deployment
+    inputs:
+      environment:
+        description: "Environment to deploy to"
+        type: choice
+        required: true
+        default: "none"
+        options:
+          - none
+          - sandbox
+          - dev
+          - qa
+          - prod
+          - all
+
+jobs:
+  auto-deploy:
+    if: github.event_name == 'push' && github.ref_name == 'main'
+    strategy:
+      matrix:
+        deploy_env: [sandbox, dev]
+    name: "🚢 Auto-Deploy to ${{ matrix.deploy_env }}"
+
+    runs-on: ubuntu-latest
+    environment: ${{ matrix.deploy_env }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy to ${{ matrix.deploy_env }}
+        run: |
+          echo Deploying to ${{ matrix.deploy_env }}
+          echo "Deployed to ${{ matrix.deploy_env }}! :rocket:" >> $GITHUB_STEP_SUMMARY
+          echo "|Enviorment|URL|Time|" >> $GITHUB_STEP_SUMMARY
+          echo "|---|---|---|" >> $GITHUB_STEP_SUMMARY
+          echo "|${{ matrix.deploy_env }}|https://localhost:3001|370ms|"  >> $GITHUB_STEP_SUMMARY
+
+  deploy:
+    if: github.event_name == 'workflow_dispatch' && !contains(fromJSON('["all", "none"]'), github.event.inputs.environment)
+
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy to ${{ github.event.inputs.environment }}
+        run: |
+          echo Deploying to ${{ github.event.inputs.environment }}
+          echo "Deployed to ${{ github.event.inputs.environment }}! :rocket:" >> $GITHUB_STEP_SUMMARY
+          echo "|Enviorment|URL|Time|" >> $GITHUB_STEP_SUMMARY
+          echo "|---|---|---|" >> $GITHUB_STEP_SUMMARY
+          echo "|${{ github.event.inputs.environment }}|https://localhost:3001|370ms|"  >> $GITHUB_STEP_SUMMARY
+
+  deploy-all:
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'all'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        deploy_env: [sandbox, dev, qa, prod]
+    name: "🚢 Deploy to ${{ matrix.deploy_env }}"
+    environment: ${{ matrix.deploy_env }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy to ${{ matrix.deploy_env }}
+        run: |
+          echo Deploying to ${{ matrix.deploy_env }}
+          echo "Deployed to ${{ matrix.deploy_env }}! :rocket:" >> $GITHUB_STEP_SUMMARY
+          echo "|Enviorment|URL|Time|" >> $GITHUB_STEP_SUMMARY
+          echo "|---|---|---|" >> $GITHUB_STEP_SUMMARY
+          echo "|${{ matrix.deploy_env }}|https://localhost:3001|370ms|"  >> $GITHUB_STEP_SUMMARY
