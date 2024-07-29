@@ -1,0 +1,38 @@
+name: rate-limit
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check-rate-limit:
+    env:
+      GH_TOKEN: ${{ github.token }}
+    runs-on: ubuntu-latest
+    steps:
+    - id: fetch-rate-limit
+      run: echo "result=$(gh api rate_limit)" >> "${GITHUB_OUTPUT}"
+    # Parse rate limit output from fetch-rate-limit step
+    # Render in markdown table format, and set as output for use in next step
+    - id: parse-rate-limit
+      uses: actions/github-script@v7
+      env:
+        RATE_LIMIT_RESULT: ${{ steps.fetch-rate-limit.outputs.result }}
+      with:
+        script: |
+          let rateLimit = JSON.parse(process.env.RATE_LIMIT_RESULT);
+          console.log(rateLimit)
+          // Create the header row
+          let table = "| Resource | Limit | Remaining | Reset |\n";
+          table += "| --- | --- | --- | --- |\n";
+          // Create a row for each resource
+          for (let resource in rateLimit.resources) {
+            table += `| ${resource} | ${rateLimit.resources[resource].limit} | ${rateLimit.resources[resource].remaining} | ${rateLimit.resources[resource].reset} |\n`;
+          }
+          // Set the output
+          return table;
+        result-encoding: string
+    - id: render
+      run: echo "${{ steps.parse-rate-limit.outputs.result }}" >> "${GITHUB_STEP_SUMMARY}"

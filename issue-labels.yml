@@ -1,0 +1,22 @@
+name: issue-labels
+
+on:
+  issues:
+      types: [labeled]
+
+permissions:
+  contents: read
+
+jobs:
+  labeled:
+    runs-on: ubuntu-latest
+    if: contains(github.event.label.name, 'duplicate')
+    #if: github.event.label.name == 'bug'
+    steps:
+    - uses: actions/github-script@v7
+      with:
+        script: |
+          console.log(context)
+          console.log(context.payload.issue.body)
+  wf:
+    uses: ./.github/workflows/issue-workflow-called.yml

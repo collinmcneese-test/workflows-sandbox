@@ -1,0 +1,13 @@
+name: whoami
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  whoami:
+    strategy:
+      matrix:
+        platform: [ ubuntu-latest, windows-latest, macos-latest ]
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - run: whoami

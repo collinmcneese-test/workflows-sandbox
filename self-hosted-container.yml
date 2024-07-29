@@ -1,0 +1,105 @@
+name: self-hosted-container
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  externals:
+    runs-on: arc-runner-set-collinmcneese-test
+    steps:
+      - run: |
+          echo "fetching __w"
+          ls -al /__w/ || echo "no /__w/"
+          echo "fetching __e"
+          ls -al /__e/ || echo "no /__e/"
+          echo "fetching /home/runner"
+          ls -al /home/runner || echo "no /home/runner"
+          echo "fetching /home/runner/externals"
+          ls -al /home/runner/externals || echo "no /home/runner/externals"
+  externals-container:
+    runs-on: arc-runner-set-collinmcneese-test
+    container:
+      image: alpine:latest
+      volumes:
+        - /run/docker/docker.sock:/run/docker/docker.sock
+      env:
+        DOCKER_HOST: unix:///run/docker/docker.sock
+      options: --privileged
+    steps:
+      - run: |
+          echo "fetching __w"
+          ls -al /__w/ || echo "no /__w/"
+          echo "fetching __e"
+          ls -al /__e/ || echo "no /__e/"
+          echo "fetching /home/runner"
+          ls -al /home/runner || echo "no /home/runner"
+          echo "fetching /home/runner/externals"
+          ls -al /home/runner/externals || echo "no /home/runner/externals"
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+  test-with-job-container:
+    runs-on: arc-runner-set-collinmcneese-test
+    container:
+      image: alpine:latest
+      volumes:
+        - /run/docker/docker.sock:/run/docker/docker.sock
+      env:
+        DOCKER_HOST: unix:///run/docker/docker.sock
+      options: --privileged
+    services:
+      vault:
+        image: hashicorp/vault:latest
+        ports:
+          - 8200:8200
+        env:
+          VAULT_DEV_ROOT_TOKEN_ID: root
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+      # - run: cat /var/run/secrets/kubernetes.io/serviceaccount/token
+      - name: Set up Vault
+        id: vault
+        uses: hashicorp/vault-action@v3
+        with:
+          url: http://localhost:8200
+          token: root
+          # secrets: |
+          #   secret/data/my-secret
+      - name: Get the secret
+        run: echo ${{ steps.vault.outputs.secret }}
+  test-with-services:
+    runs-on: arc-runner-set-collinmcneese-test
+    services:
+      node:
+        image: node:20
+        env:
+          NODE_ENV: development
+        ports:
+        - 80
+    #   opensearch:
+    #     image: opensearchproject/opensearch:latest
+    #     env:
+    #       discovery.type: single-node
+    #       cluster.name: opensearch-cluster
+    #       bootstrap.memory_lock: "true"
+    #       "OPENSEARCH_JAVA_OPTS": "-Xms512m -Xmx512m"
+    #     ports:
+    #       - 9200:9200
+    #       - 9300:9300
+    #     volumes:
+    #       - opensearch-data:/usr/share/opensearch/data
+    #       - opensearch-logs:/usr/share/opensearch/logs
+    #       - opensearch-config:/usr/share/opensearch/config
+    #   redis:
+    #     image: redis
+    #     ports:
+    #       - 6379:6379
+    steps:
+      - name: docker ps
+        run: docker ps
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: which node

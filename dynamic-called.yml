@@ -1,0 +1,22 @@
+on:
+  workflow_call:
+    inputs:
+      name:
+        description: 'Name'
+        type: string
+        required: true
+      value:
+        description: 'Value'
+        type: string
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  reusable-workflow:
+    runs-on: ubuntu-latest
+    name: ${{ github.event.inputs.name }} / ${{ github.event.inputs.value }}
+    steps:
+      - name: Reusable Workflow - ${{ github.event.inputs.name }}
+        run: echo ${{ github.event.inputs.name }} ${{ github.event.inputs.value }}

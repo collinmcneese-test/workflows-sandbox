@@ -1,0 +1,13 @@
+name: self-hosted
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  job1:
+    runs-on: self-hosted
+    steps:
+    - run: sleep 60
