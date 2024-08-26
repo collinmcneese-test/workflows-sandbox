@@ -8,4 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - run: curl ifconfig.me
+    - run: |
+        sudo apt update -y
+        sudo apt install -y nginx
+        sudo systemctl start nginx
     - run: sleep 180
