@@ -3,6 +3,9 @@ name: issue-workflow-called
 on:
   workflow_call:
 
+permissions:
+  issues: read
+
 jobs:
   issue-workflow-called:
     runs-on: ubuntu-latest

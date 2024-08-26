@@ -3,6 +3,8 @@ name: rate-limit
 on:
   workflow_dispatch:
 
+permissions: {}
+
 jobs:
   check-rate-limit:
     env:

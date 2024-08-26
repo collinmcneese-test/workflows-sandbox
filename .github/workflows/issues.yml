@@ -4,6 +4,8 @@ on:
   issues:
     types: [labeled, edited]
 
+permissions: {}
+
 jobs:
   # use github-script to output the github context
   output:

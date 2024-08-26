@@ -3,6 +3,8 @@ name: failure
 on:
   workflow_dispatch:
 
+permissions: {}
+
 jobs:
   job1:
     runs-on: ubuntu-latest
@@ -24,4 +26,3 @@ jobs:
     - job3
     steps:
       - run: sleep 5
-    

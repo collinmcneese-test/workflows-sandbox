@@ -3,6 +3,8 @@ name: notify
 on:
   workflow_dispatch:
 
+permissions: {}
+
 jobs:
   notify-success:
     runs-on: ubuntu-latest

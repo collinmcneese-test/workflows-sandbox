@@ -4,6 +4,8 @@ on:
   workflow_dispatch:
   workflow_call:
 
+permissions: {}
+
 jobs:
   call-echo2:
     uses: collinmcneese-test/.github/.github/workflows/echo2.yml@v2

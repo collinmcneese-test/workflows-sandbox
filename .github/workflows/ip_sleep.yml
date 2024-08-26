@@ -3,6 +3,8 @@ name: ip sleep
 on:
   workflow_dispatch:
 
+permissions: {}
+
 jobs:
   run:
     runs-on: ubuntu-latest

@@ -2,6 +2,9 @@ name: workflow-metrics
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   evaluate-actions-consumption:
     runs-on: ubuntu-latest
@@ -43,4 +46,3 @@ jobs:
         run: |
           echo "Combine output files"
           cat stream-diagram.md stats-table.md >> $GITHUB_STEP_SUMMARY
-          
