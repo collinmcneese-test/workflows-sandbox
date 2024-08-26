@@ -11,6 +11,9 @@ on:
           - staging
         required: true
 
+permissions:
+  contents: read
+
 jobs:
   check:
     runs-on: ubuntu-latest

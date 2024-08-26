@@ -3,6 +3,8 @@ name: all-echoes
 on:
   workflow_dispatch:
 
+permissions: {}
+
 jobs:
   echo1:
     uses: ./.github/workflows/echo1.yml

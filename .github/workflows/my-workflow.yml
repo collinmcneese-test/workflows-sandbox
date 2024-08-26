@@ -13,6 +13,8 @@ on:
       message:
         required: true
 
+permissions: {}
+
 jobs:
   echo-selections:
     runs-on: ubuntu-latest

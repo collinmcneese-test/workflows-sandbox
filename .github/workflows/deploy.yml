@@ -23,6 +23,9 @@ on:
           - prod
           - all
 
+permissions:
+  contents: read
+
 jobs:
   auto-deploy:
     if: github.event_name == 'push' && github.ref_name == 'main'

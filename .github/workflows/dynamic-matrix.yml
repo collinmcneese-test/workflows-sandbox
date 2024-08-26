@@ -11,6 +11,9 @@ on:
           - matrix-object
           - all
 
+permissions:
+  contents: read
+
 jobs:
   outputs-static:
     if: |

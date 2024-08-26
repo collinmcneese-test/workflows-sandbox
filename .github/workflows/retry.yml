@@ -9,6 +9,9 @@ on:
     types:
       - completed
 
+permissions:
+  contents: read
+
 jobs:
   retry:
     runs-on: ubuntu-latest

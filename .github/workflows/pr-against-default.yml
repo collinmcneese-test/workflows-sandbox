@@ -3,6 +3,8 @@ name: PR to Default Branch
 on:
   pull_request:
 
+permissions: {}
+
 jobs:
   env:
     runs-on: ubuntu-latest

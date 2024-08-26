@@ -4,6 +4,8 @@ on:
   issues:
       types: [labeled]
 
+permissions: {}
+
 jobs:
   labeled:
     runs-on: ubuntu-latest

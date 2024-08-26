@@ -1,6 +1,9 @@
 name: whoami
 on:
   workflow_dispatch:
+
+permissions: {}
+
 jobs:
   whoami:
     strategy:
