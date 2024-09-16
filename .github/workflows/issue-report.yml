@@ -1,0 +1,82 @@
+name: Issue Report
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - '.github/workflows/issue-report.yml'
+
+permissions: {}
+
+jobs:
+  issue-report:
+    permissions:
+      issues: read
+    name: Recent Issue Report
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/github-script@v7
+      with:
+        script: |
+          const repo = {
+            owner: '${{ github.repository }}'.split('/')[0],
+            name: '${{ github.repository }}'.split('/')[1],
+          };
+
+          function markdownTable(data) {
+            const head = Object.keys(data[0]);
+            const rows = data.map(Object.values);
+            return [head, head.map(() => '---'), ...rows].map(row => `| ${row.join(' | ')} |`).join('\n');
+          }
+
+          async function main() {
+            // Get issues for the specified repo which have been updated in the last 7 days
+            const issues = await github.paginate(github.rest.issues.listForRepo, {
+              owner: repo.owner,
+              repo: repo.name,
+              state: 'all',
+              since: new Date(new Date().setDate(new Date().getDate() - 7)).toISOString(),
+            });
+
+            for (const issue of issues) {
+              if (issue.pull_request) {
+                continue;
+              }
+              // Get the latest comment for the issue
+              const comments = await github.paginate(github.rest.issues.listComments, {
+                owner: repo.owner,
+                repo: repo.name,
+                issue_number: issue.number,
+              });
+
+              let latestComment;
+
+              if (comments.length > 0) {
+                console.log(comments);
+
+                latestComment = comments[comments.length - 1].body;
+              } else {
+                console.log('No comments found');
+              }
+
+              const output = {
+                number: issue.number,
+                title: issue.title,
+                created_at: issue.created_at,
+                updated_at: issue.updated_at,
+                url: issue.html_url,
+                state: issue.state,
+                latest_comment: latestComment,
+              };
+
+              const markdown = markdownTable([output]);
+              console.log(output);
+              console.log(markdown);
+
+              await core.summary
+                .addRaw(markdown)
+                .write()
+            }
+          };
+
+          main();
