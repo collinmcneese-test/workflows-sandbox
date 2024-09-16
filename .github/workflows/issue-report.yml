@@ -23,15 +23,9 @@ jobs:
             name: '${{ github.repository }}'.split('/')[1],
           };
 
-          const { Octokit } = require('@octokit/rest');
-
-          const octokit = new Octokit({
-            auth: ${{ secrets.GITHUB_TOKEN }},
-          });
-
           async function main() {
             // Get issues for the specified repo which have been updated in the last 7 days
-            const issues = await octokit.paginate(octokit.rest.issues.listForRepo, {
+            const issues = await github.paginate(github.rest.issues.listForRepo, {
               owner: repo.owner,
               repo: repo.name,
               state: 'all',
@@ -43,7 +37,7 @@ jobs:
                 continue;
               }
               // Get the latest comment for the issue
-              const comments = await octokit.paginate(octokit.rest.issues.listComments, {
+              const comments = await github.paginate(github.rest.issues.listComments, {
                 owner: repo.owner,
                 repo: repo.name,
                 issue_number: issue.number,
