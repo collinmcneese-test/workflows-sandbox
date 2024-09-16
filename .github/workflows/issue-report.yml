@@ -19,9 +19,10 @@ jobs:
       with:
         script: |
           const repo = {
-            owner: github.context.repo.owner,
-            name: github.context.repo.repo,
+            owner: split('${{ github.repository }}')[0],
+            name: split('${{ github.repository }}')[1],
           };
+
           const { Octokit } = require('@octokit/rest');
 
           const octokit = new Octokit({
