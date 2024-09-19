@@ -38,6 +38,8 @@ jobs:
               since: new Date(new Date().setDate(new Date().getDate() - 7)).toISOString(),
             });
 
+            let output = [];
+
             for (const issue of issues) {
               if (issue.pull_request) {
                 continue;
@@ -59,23 +61,23 @@ jobs:
                 console.log('No comments found');
               }
 
-              const output = {
+              output.push({
                 number: `[${issue.number}](${issue.html_url})`,
                 title: issue.title,
                 created_at: issue.created_at,
                 updated_at: issue.updated_at,
                 state: issue.state,
                 latest_comment: latestComment,
-              };
+              });
+              }
 
-              const markdown = markdownTable([output]);
-              console.log(output);
-              console.log(markdown);
+            const markdown = markdownTable(output);
+            console.log(output);
+            console.log(markdown);
 
-              await core.summary
-                .addRaw(markdown)
-                .write()
-            }
+            await core.summary
+              .addRaw(markdown)
+              .write()
           };
 
           main();
