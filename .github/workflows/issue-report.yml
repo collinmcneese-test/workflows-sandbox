@@ -60,11 +60,10 @@ jobs:
               }
 
               const output = {
-                number: issue.number,
+                number: `[${issue.number}](${issue.html_url})`,
                 title: issue.title,
                 created_at: issue.created_at,
                 updated_at: issue.updated_at,
-                url: issue.html_url,
                 state: issue.state,
                 latest_comment: latestComment,
               };
