@@ -1,44 +1,41 @@
-# repo_with_a_workflow
-
-Simple repository with a workflow file and an example [CODEOWNERS](.github/CODEOWNERS) to protect changes to this file ([more details on code owners](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners)).
-
-Usage of `CODEOWNERS` additionally requires that Branch Protection rules be enabled.  As an example:
-
-![image](https://user-images.githubusercontent.com/8185808/181379196-6ea86e04-1b18-45a5-a5e2-df3f65838d64.png)
+# workflows-sandbox
 
 ## GitHub Actions Workflows
 
 This section provides an overview of the GitHub Actions workflows defined in this repository under `.github/workflows`. These workflows automate various aspects of the development process, from code linting and testing to deployment.
 
-### Table of Contents
+## Table of Contents
 
-- [all-echoes.yml](#all-echoes)
-- [context.yml](#context)
-- [dependabot-auto.yml](#dependabot-auto)
-- [deploy.yml](#deploy)
-- [dynamic-called.yml](#dynamic-called)
-- [dynamic-matrix.yml](#dynamic-matrix)
-- [echo1.yml](#echo1)
-- [echo2.yml](#echo2)
-- [echo3.yml](#echo3)
-- [fail.yml](#fail)
-- [failure.yml](#failure)
-- [issue-labels.yml](#issue-labels)
-- [issue-workflow-called.yml](#issue-workflow-called)
-- [issues.yml](#issues)
-- [my-workflow.yml](#my-workflow)
-- [pr-against-default.yml](#pr-against-default)
-- [pr-dependency-review.yml](#pr-dependency-review)
-- [rate-limit.yml](#rate-limit)
-- [release.yml](#release)
-- [retry.yml](#retry)
-- [scorecard.yml](#scorecard)
-- [self-hosted-container.yml](#self-hosted-container)
-- [self-hosted.yml](#self-hosted)
-- [workflow-metrics.yml](#workflow-metrics)
-- [workflow-with-protection-check.yml](#workflow-with-protection-check)
+- [workflows-sandbox](#workflows-sandbox)
+  - [GitHub Actions Workflows](#github-actions-workflows)
+  - [Table of Contents](#table-of-contents)
+  - [all-echoes.yml](#all-echoesyml)
+  - [context.yml](#contextyml)
+  - [dependabot-auto.yml](#dependabot-autoyml)
+  - [deploy.yml](#deployyml)
+  - [dynamic-called.yml](#dynamic-calledyml)
+  - [dynamic-matrix.yml](#dynamic-matrixyml)
+  - [echo1.yml](#echo1yml)
+  - [echo2.yml](#echo2yml)
+  - [echo3.yml](#echo3yml)
+  - [fail.yml](#failyml)
+  - [failure.yml](#failureyml)
+  - [issue-labels.yml](#issue-labelsyml)
+  - [issue-workflow-called.yml](#issue-workflow-calledyml)
+  - [issues.yml](#issuesyml)
+  - [my-workflow.yml](#my-workflowyml)
+  - [pr-against-default.yml](#pr-against-defaultyml)
+  - [pr-dependency-review.yml](#pr-dependency-reviewyml)
+  - [rate-limit.yml](#rate-limityml)
+  - [release.yml](#releaseyml)
+  - [retry.yml](#retryyml)
+  - [scorecard.yml](#scorecardyml)
+  - [self-hosted-container.yml](#self-hosted-containeryml)
+  - [self-hosted.yml](#self-hostedyml)
+  - [workflow-metrics.yml](#workflow-metricsyml)
+  - [workflow-with-protection-check.yml](#workflow-with-protection-checkyml)
 
-### all-echoes.yml
+## all-echoes.yml
 
 **Description:** This workflow demonstrates the use of reusable workflows by calling multiple echo workflows.
 
@@ -50,7 +47,7 @@ This section provides an overview of the GitHub Actions workflows defined in thi
 
 **Special Notes:** Utilizes reusable workflows for modular job execution.
 
-### context.yml
+## context.yml
 
 **Description:** Prints GitHub context information for debugging purposes.
 
@@ -61,7 +58,7 @@ This section provides an overview of the GitHub Actions workflows defined in thi
 
 **Special Notes:** Useful for debugging and understanding GitHub context in actions.
 
-### dependabot-auto.yml
+## dependabot-auto.yml
 
 **Description:** Automatically approves pull requests created by Dependabot.
 
@@ -72,7 +69,7 @@ This section provides an overview of the GitHub Actions workflows defined in thi
 
 **Special Notes:** Ensures automated dependency updates are approved for further CI/CD processes.
 
-### deploy.yml
+## deploy.yml
 
 **Description:** Manages deployment to various environments based on manual triggers.
 
@@ -85,7 +82,7 @@ This section provides an overview of the GitHub Actions workflows defined in thi
 
 **Special Notes:** Demonstrates conditional job execution and environment deployments.
 
-### dynamic-called.yml
+## dynamic-called.yml
 
 **Description:** A reusable workflow that can be dynamically called with different inputs.
 
@@ -96,7 +93,7 @@ This section provides an overview of the GitHub Actions workflows defined in thi
 
 **Special Notes:** Showcases the flexibility of reusable workflows with dynamic inputs.
 
-### dynamic-matrix.yml
+## dynamic-matrix.yml
 
 **Description:** Demonstrates the use of dynamic matrix strategies in GitHub Actions.
 
@@ -110,7 +107,7 @@ This section provides an overview of the GitHub Actions workflows defined in thi
 
 **Special Notes:** Highlights advanced CI/CD techniques with dynamic job configurations.
 
-### echo1.yml
+## echo1.yml
 
 **Description:** A reusable workflow that echoes a message.
 
@@ -121,7 +118,7 @@ This section provides an overview of the GitHub Actions workflows defined in thi
 
 **Special Notes:** Part of a set of reusable echo workflows for demonstration purposes.
 
-### echo2.yml
+## echo2.yml
 
 **Description:** Similar to echo1.yml, this reusable workflow echoes a message.
 
@@ -132,7 +129,7 @@ This section provides an overview of the GitHub Actions workflows defined in thi
 
 **Special Notes:** Part of a set of reusable echo workflows for demonstration purposes.
 
-### echo3.yml
+## echo3.yml
 
 **Description:** Similar to echo1.yml and echo2.yml, this reusable workflow echoes a message.
 
@@ -143,7 +140,7 @@ This section provides an overview of the GitHub Actions workflows defined in thi
 
 **Special Notes:** Part of a set of reusable echo workflows for demonstration purposes. Note the potential typo in job name.
 
-### fail.yml
+## fail.yml
 
 **Description:** A simple workflow designed to fail for testing failure handling.
 
@@ -154,7 +151,7 @@ This section provides an overview of the GitHub Actions workflows defined in thi
 
 **Special Notes:** Useful for testing failure handling and retry mechanisms in workflows.
 
-### failure.yml
+## failure.yml
 
 **Description:** Simulates a workflow with multiple jobs, some of which are designed to fail.
 
@@ -165,7 +162,7 @@ This section provides an overview of the GitHub Actions workflows defined in thi
 
 **Special Notes:** Demonstrates handling of job failures and dependencies between jobs.
 
-### issue-labels.yml
+## issue-labels.yml
 
 **Description:** Triggers actions based on issue labels.
 
@@ -176,7 +173,7 @@ This section provides an overview of the GitHub Actions workflows defined in thi
 
 **Special Notes:** Showcases conditional job execution based on issue labels.
 
-### issue-workflow-called.yml
+## issue-workflow-called.yml
 
 **Description:** A workflow called by other workflows to handle issue-related actions.
 
@@ -187,7 +184,7 @@ This section provides an overview of the GitHub Actions workflows defined in thi
 
 **Special Notes:** Enables modular handling of issue-related actions across workflows.
 
-### issues.yml
+## issues.yml
 
 **Description:** Tests issue-related events and outputs the GitHub context.
 
@@ -198,7 +195,7 @@ This section provides an overview of the GitHub Actions workflows defined in thi
 
 **Special Notes:** Useful for understanding and debugging issue event handling.
 
-### my-workflow.yml
+## my-workflow.yml
 
 **Description:** A customizable workflow that echoes a message with selected options.
 
@@ -209,7 +206,7 @@ This section provides an overview of the GitHub Actions workflows defined in thi
 
 **Special Notes:** Demonstrates the use of workflow inputs for customization.
 
-### pr-against-default.yml
+## pr-against-default.yml
 
 **Description:** Handles pull requests against the default branch with specific actions.
 
@@ -222,7 +219,7 @@ This section provides an overview of the GitHub Actions workflows defined in thi
 
 **Special Notes:** Differentiates actions based on whether the PR targets the default branch.
 
-### pr-dependency-review.yml
+## pr-dependency-review.yml
 
 **Description:** Reviews dependencies in pull requests for security vulnerabilities.
 
@@ -233,7 +230,7 @@ This section provides an overview of the GitHub Actions workflows defined in thi
 
 **Special Notes:** Enhances security by automatically reviewing dependencies in PRs.
 
-### rate-limit.yml
+## rate-limit.yml
 
 **Description:** Checks GitHub API rate limits and outputs the results.
 
@@ -244,7 +241,7 @@ This section provides an overview of the GitHub Actions workflows defined in thi
 
 **Special Notes:** Useful for monitoring and managing GitHub API usage.
 
-### release.yml
+## release.yml
 
 **Description:** Handles actions upon creation of a new release.
 
@@ -255,7 +252,7 @@ This section provides an overview of the GitHub Actions workflows defined in thi
 
 **Special Notes:** Automates tasks related to new releases, such as notifications or deployments.
 
-### retry.yml
+## retry.yml
 
 **Description:** Retries a workflow upon failure, with a limit on retry attempts.
 
@@ -267,7 +264,7 @@ This section provides an overview of the GitHub Actions workflows defined in thi
 
 **Special Notes:** Demonstrates advanced error handling and retry mechanisms in workflows.
 
-### scorecard.yml
+## scorecard.yml
 
 **Description:** Runs the Scorecard supply-chain security analysis on the repository.
 
@@ -278,7 +275,7 @@ This section provides an overview of the GitHub Actions workflows defined in thi
 
 **Special Notes:** Enhances supply-chain security by regularly analyzing repository practices.
 
-### self-hosted-container.yml
+## self-hosted-container.yml
 
 **Description:** Demonstrates running workflows on self-hosted runners with container support.
 
@@ -292,7 +289,7 @@ This section provides an overview of the GitHub Actions workflows defined in thi
 
 **Special Notes:** Showcases the capabilities and configurations of self-hosted runners with containers.
 
-### self-hosted.yml
+## self-hosted.yml
 
 **Description:** A simple workflow demonstrating the use of self-hosted runners.
 
@@ -303,7 +300,7 @@ This section provides an overview of the GitHub Actions workflows defined in thi
 
 **Special Notes:** Useful for testing and demonstrating self-hosted runner configurations.
 
-### workflow-metrics.yml
+## workflow-metrics.yml
 
 **Description:** Collects and analyzes metrics for workflow runs within the repository.
 
@@ -314,7 +311,7 @@ This section provides an overview of the GitHub Actions workflows defined in thi
 
 **Special Notes:** Provides insights into workflow efficiency and resource consumption.
 
-### workflow-with-protection-check.yml
+## workflow-with-protection-check.yml
 
 **Description:** Checks if the selected environment for deployment is protected before proceeding.
 
