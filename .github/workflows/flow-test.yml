@@ -13,6 +13,11 @@ on:
         required: true
         default: "false"
         type: string
+      fail_plan:
+        description: 'Fail the plan'
+        required: true
+        default: "false"
+        type: string
 
 jobs:
   plan:
@@ -24,6 +29,12 @@ jobs:
     - name: Require Import
       id: requireImport
       run: echo "requireImport=${{ inputs.import_test }}" >> $GITHUB_OUTPUT
+    - name: Fail Plan
+      if: inputs.fail_plan == true
+      run: |
+        echo "Plan failed" >> $GITHUB_STEP_SUMMARY
+        exit 1
+    - run: echo "Plan complete" >> $GITHUB_STEP_SUMMARY
 
   import:
     needs: plan
@@ -31,6 +42,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - run: echo "Importing the infrastructure"
+    - run: echo "Import complete" >> $GITHUB_STEP_SUMMARY
 
   apply:
     needs:
@@ -40,9 +52,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - run: echo "Applying the infrastructure"
+    - run: echo "Apply complete" >> $GITHUB_STEP_SUMMARY
 
   destroy:
     if: inputs.destroy == true
     runs-on: ubuntu-latest
     steps:
     - run: echo "Destroying the infrastructure"
+    - run: echo "Destroy complete" >> $GITHUB_STEP_SUMMARY
