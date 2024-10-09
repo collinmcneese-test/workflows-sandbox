@@ -27,6 +27,11 @@ jobs:
     outputs:
       requireImport: ${{ steps.requireImport.outputs.requireImport }}
     steps:
+    - name: Debug
+      run: |
+        echo "Destroy: ${{ inputs.destroy }}" >> $GITHUB_STEP_SUMMARY
+        echo "Import Test: ${{ inputs.import_test }}" >> $GITHUB_STEP_SUMMARY
+        echo "Fail Plan: ${{ inputs.fail_plan }}" >> $GITHUB_STEP_SUMMARY
     - name: Require Import
       id: requireImport
       run: echo "requireImport=${{ inputs.import_test }}" >> $GITHUB_OUTPUT
