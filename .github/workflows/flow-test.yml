@@ -1,0 +1,48 @@
+name: flow test
+
+on:
+  workflow_dispatch:
+    inputs:
+      destroy:
+        description: 'Destroy the infrastructure'
+        required: true
+        default: false
+        type: boolean
+      import_test:
+        description: 'Test the import'
+        required: true
+        default: "false"
+        type: string
+
+jobs:
+  plan:
+    if: inputs.destroy == false
+    runs-on: ubuntu-latest
+    outputs:
+      requireImport: ${{ steps.requireImport.outputs.requireImport }}
+    steps:
+    - name: Require Import
+      id: requireImport
+      run: echo "requireImport=${{ inputs.import_test }}" >> $GITHUB_OUTPUT
+
+  import:
+    needs: plan
+    if: needs.plan.outputs.requireImport == true
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo "Importing the infrastructure"
+
+  apply:
+    needs:
+      - plan
+      - import
+    if: (needs.plan.outputs.requireImport == true && needs.import.result == 'success') || needs.plan.result == 'success'
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo "Applying the infrastructure"
+
+  destroy:
+    if: inputs.destroy == true
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo "Destroying the infrastructure"
