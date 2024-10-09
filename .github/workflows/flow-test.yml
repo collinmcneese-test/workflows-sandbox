@@ -44,7 +44,7 @@ jobs:
 
   import:
     needs: plan
-    if: needs.plan.outputs.require_import == true
+    if: needs.plan.outputs.require_import == 'true'
     runs-on: ubuntu-latest
     steps:
     - run: echo "Importing the infrastructure"
