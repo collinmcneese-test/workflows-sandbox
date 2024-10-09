@@ -1,4 +1,4 @@
-name: flow test
+name: flow-test
 
 on:
   workflow_dispatch:
