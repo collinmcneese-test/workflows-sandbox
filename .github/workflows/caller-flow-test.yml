@@ -26,14 +26,18 @@ jobs:
     with:
       step: plan
   import:
+    if: ${{ needs.plan.outputs.require_import == 'true' }}
+    needs: plan
     uses: ./.github/workflows/reusable-flow-test.yml
     with:
       step: import
   apply:
+    needs: plan
     uses: ./.github/workflows/reusable-flow-test.yml
     with:
       step: apply
   destroy:
+    if: ${{ inputs.destroy == true }}
     uses: ./.github/workflows/reusable-flow-test.yml
     with:
       step: destroy

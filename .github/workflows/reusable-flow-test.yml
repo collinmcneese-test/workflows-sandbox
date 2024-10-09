@@ -11,6 +11,9 @@ on:
       step-result:
         description: 'Result of the step'
         value: jobs.${{ inputs.step }}.result
+      require-import:
+        description: 'Require import'
+        value: jobs.plan.outputs.require-import
 
 jobs:
   plan:
