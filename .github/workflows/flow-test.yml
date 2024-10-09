@@ -12,12 +12,13 @@ on:
         description: 'Test the import'
         required: true
         default: "false"
-        type: string
+        type: choice
+        options: ["true", "false"]
       fail_plan:
         description: 'Fail the plan'
         required: true
-        default: "false"
-        type: string
+        default: false
+        type: boolean
 
 jobs:
   plan:
