@@ -1,0 +1,39 @@
+name: Flow Test Caller
+
+on:
+  workflow_dispatch:
+    inputs:
+      destroy:
+        description: 'Destroy the infrastructure'
+        required: true
+        default: false
+        type: boolean
+      import_test:
+        description: 'Test the import'
+        required: true
+        default: "false"
+        type: choice
+        options: ["true", "false"]
+      fail_plan:
+        description: 'Fail the plan'
+        required: true
+        default: false
+        type: boolean
+
+jobs:
+  plan:
+    uses: ./.github/workflows/reusable-flow-test.yml
+    with:
+      step: plan
+  import:
+    uses: ./.github/workflows/reusable-flow-test.yml
+    with:
+      step: import
+  apply:
+    uses: ./.github/workflows/reusable-flow-test.yml
+    with:
+      step: apply
+  destroy:
+    uses: ./.github/workflows/reusable-flow-test.yml
+    with:
+      step: destroy
