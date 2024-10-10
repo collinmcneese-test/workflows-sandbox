@@ -2,7 +2,8 @@ name: json-var
 on:
   push:
     branches: [ "main" ]
-    paths: ["./.github/workflows/json-var.yml"]
+    paths:
+      - '.github/workflows/json-var.yml'
   workflow_dispatch:
 
 jobs:
@@ -11,4 +12,4 @@ jobs:
     steps:
       - run: echo '${{ vars.jsondata }}'
       - run: echo "${{ toJSON(vars.jsondata).key1 }}"
-      - run: echo "${{ fromJSON(vars.jsondata).key1 }}"     
+      - run: echo "${{ fromJSON(vars.jsondata).key1 }}"
