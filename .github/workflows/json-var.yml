@@ -1,0 +1,14 @@
+name: json-var
+on:
+  push:
+    branches: [ "main" ]
+    paths: ["./.github/workflows/json-var.yml"]
+  workflow_dispatch:
+
+jobs:
+  json:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "${{ vars.jsondata }}"
+      - run: echo "${{ toJSON(vars.jsondata) }}"
+      - run: echo "${{ fromJSON(vars.jsondata) }}"     
