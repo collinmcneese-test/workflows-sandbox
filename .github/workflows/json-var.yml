@@ -9,6 +9,6 @@ jobs:
   json:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "${{ vars.jsondata }}"
-      - run: echo "${{ toJSON(vars.jsondata) }}"
-      - run: echo "${{ fromJSON(vars.jsondata) }}"     
+      - run: echo '${{ vars.jsondata }}'
+      - run: echo "${{ toJSON(vars.jsondata).key1 }}"
+      - run: echo "${{ fromJSON(vars.jsondata).key1 }}"     
