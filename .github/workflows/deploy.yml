@@ -52,6 +52,7 @@ jobs:
           echo "|Enviorment|URL|Time|" >> $GITHUB_STEP_SUMMARY
           echo "|---|---|---|" >> $GITHUB_STEP_SUMMARY
           echo "|${{ matrix.deploy_env }}|https://localhost:3001|370ms|"  >> $GITHUB_STEP_SUMMARY
+      - run: env | sort
       - name: log context
         run: |
           echo "GITHUB_CONTEXT: '${{ toJson(github) }}'"
