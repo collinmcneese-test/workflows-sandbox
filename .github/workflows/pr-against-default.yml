@@ -20,6 +20,14 @@ jobs:
       run: |
         echo "This is a PR to Default Branch" >> $GITHUB_STEP_SUMMARY
         echo "${{ github.event.repository.default_branch }} -> ${{ github.event.pull_request.base.ref }}" >> $GITHUB_STEP_SUMMARY
+    - name: Write comment to PR
+      uses: peter-evans/create-or-update-comment@v4
+      with:
+        issue-number: ${{ github.event.pull_request.number }}
+        body: |
+          :wave: This is a PR to the default branch
+          See details about this job in the [log](${{ github.event.pull_request.head.repo.html_url }}/actions/runs/${{ github.run_id }}).
+
   not-default-branch-pr:
     if: ${{ github.event.repository.default_branch != github.event.pull_request.base.ref }}
     runs-on: ubuntu-latest
