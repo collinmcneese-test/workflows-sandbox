@@ -22,6 +22,9 @@ on:
           - qa
           - prod
           - all
+  pull_request:
+    paths:
+    - './.github/workflows/deploy.yml'
 
 permissions:
   contents: read
@@ -35,7 +38,9 @@ jobs:
     name: "🚢 Auto-Deploy to ${{ matrix.deploy_env }}"
 
     runs-on: ubuntu-latest
-    environment: ${{ matrix.deploy_env }}
+    environment:
+      name: ${{ matrix.deploy_env }}
+      description: my description
     steps:
       - name: Checkout
         uses: actions/checkout@v4
