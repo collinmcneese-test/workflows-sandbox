@@ -23,6 +23,8 @@ on:
           - prod
           - all
   push:
+    branches:
+      - main
     paths:
       - './.github/workflows/deploy.yml'
 
@@ -31,7 +33,7 @@ permissions:
 
 jobs:
   auto-deploy:
-    if: github.event_name == 'push' && github.ref_name == 'main'
+    if: github.event_name == 'push'
     strategy:
       matrix:
         deploy_env: [sandbox, dev]
