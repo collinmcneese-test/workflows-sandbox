@@ -22,6 +22,9 @@ on:
           - qa
           - prod
           - all
+  push:
+    paths:
+      - './.github/workflows/deploy.yml'
 
 permissions:
   contents: read
@@ -47,6 +50,10 @@ jobs:
           echo "|Enviorment|URL|Time|" >> $GITHUB_STEP_SUMMARY
           echo "|---|---|---|" >> $GITHUB_STEP_SUMMARY
           echo "|${{ matrix.deploy_env }}|https://localhost:3001|370ms|"  >> $GITHUB_STEP_SUMMARY
+      - name: log context
+        run: |
+          echo "GITHUB_CONTEXT: $GITHUB_CONTEXT"
+          echo ${{ job.deployment }}
 
   deploy:
     if: github.event_name == 'workflow_dispatch' && !contains(fromJSON('["all", "none"]'), github.event.inputs.environment)

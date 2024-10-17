@@ -1,0 +1,29 @@
+# GitHub Composite Action
+name: Action Flow Test
+
+description: |
+  This is a test of a composite action that uses a reusable workflow.
+
+inputs:
+  step:
+    description: 'Step to run'
+    required: true
+    type: string
+outputs:
+  step-result:
+    description: 'Result of the step'
+    value: steps.step-result.outputs.result
+
+  require-import:
+    description: 'Require import'
+    value: 'false'
+runs:
+  using: 'composite'
+  steps:
+    - run: echo "Running the step: ${{ inputs.step }}"
+      shell: bash
+    - run: echo "Step ${{ inputs.step }} complete" >> $GITHUB_STEP_SUMMARY
+      shell: bash
+    - run: echo "result=${{ inputs.step}}" >> $GITHUB_OUTPUT
+      shell: bash
+      id: step-result
