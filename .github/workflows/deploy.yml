@@ -57,7 +57,9 @@ jobs:
     if: github.event_name == 'workflow_dispatch' && !contains(fromJSON('["all", "none"]'), github.event.inputs.environment)
 
     runs-on: ubuntu-latest
-    environment: ${{ github.event.inputs.environment }}
+    environment:
+      name: ${{ github.event.inputs.environment }}
+      description: my description
     steps:
       - name: Checkout
         uses: actions/checkout@v4
