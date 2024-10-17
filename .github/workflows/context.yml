@@ -15,6 +15,7 @@ jobs:
       ITEM2: item2value
     runs-on: ubuntu-latest
     steps:
+    - run: env | sort
     - uses: actions/github-script@v7
       with:
         script: |
