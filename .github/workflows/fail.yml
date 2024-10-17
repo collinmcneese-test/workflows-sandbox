@@ -11,18 +11,15 @@ permissions:
 
 jobs:
   fail:
+    permissions:
+      pull-requests: write
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Run a one-line script
         run: exit 1
-  comment:
-    permissions:
-      pull-requests: write
-    if: failure() && github.event_name == 'pull_request'
-    runs-on: ubuntu-latest
-    steps:
       - name: Write comment to PR
+        if: failure() && github.event_name == 'pull_request'
         uses: peter-evans/create-or-update-comment@v4
         with:
           issue-number: ${{ github.event.pull_request.number }}
