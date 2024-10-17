@@ -5,6 +5,11 @@
 name: Deploy
 
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/deploy.yml'
   workflow_dispatch:
     # This workflow can be manually triggered from the Actions tab
     # by clicking the 'Run workflow' dropdown next to the workflow file name
@@ -22,11 +27,7 @@ on:
           - qa
           - prod
           - all
-  push:
-    branches:
-      - main
-    paths:
-      - './.github/workflows/deploy.yml'
+
 
 permissions:
   contents: read
