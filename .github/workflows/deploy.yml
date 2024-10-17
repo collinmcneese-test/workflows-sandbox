@@ -23,8 +23,8 @@ on:
           - prod
           - all
   pull_request:
-    paths:
-    - './.github/workflows/deploy.yml'
+    # paths:
+    # - './.github/workflows/deploy.yml'
 
 permissions:
   contents: read
