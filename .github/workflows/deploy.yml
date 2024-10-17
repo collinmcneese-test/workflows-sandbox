@@ -56,9 +56,6 @@ jobs:
       - name: log context
         run: |
           echo "GITHUB_CONTEXT: '${{ toJson(github) }}'"
-          echo "JOB_CONTEXT: '${{ toJson(job) }}'"
-          echo "env: $(env | sort)"
-
 
   deploy:
     if: github.event_name == 'workflow_dispatch' && !contains(fromJSON('["all", "none"]'), github.event.inputs.environment)
