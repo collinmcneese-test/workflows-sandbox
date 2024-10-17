@@ -40,7 +40,6 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: ${{ matrix.deploy_env }}
-      description: my description
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -59,7 +58,6 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: ${{ github.event.inputs.environment }}
-      description: my description
     steps:
       - name: Checkout
         uses: actions/checkout@v4
