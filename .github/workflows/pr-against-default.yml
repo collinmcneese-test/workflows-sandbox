@@ -16,7 +16,7 @@ jobs:
     if: ${{ github.event.repository.default_branch == github.event.pull_request.base.ref }}
     runs-on: ubuntu-latest
     permissions:
-      issues: write
+      pull-requests: write
     steps:
     - name: PR to Default Branch
       run: |
