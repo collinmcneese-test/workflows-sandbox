@@ -8,11 +8,15 @@ on:
 permissions:
   issues: read
 
+env:
+  item1: item1value
+  ITEM2: item2value
+
 jobs:
   context:
     env:
-      item1: item1value
-      ITEM2: item2value
+      item3: item1value
+      ITEM4: item2value
     runs-on: ubuntu-latest
     steps:
     - run: env | sort
