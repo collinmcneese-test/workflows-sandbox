@@ -17,6 +17,8 @@ jobs:
       - name: Run a one-line script
         run: exit 1
   comment:
+    permissions:
+      pull-requests: write
     if: failure() && github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
