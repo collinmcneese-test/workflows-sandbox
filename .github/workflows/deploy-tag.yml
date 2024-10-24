@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Diagram
         run: |
-          cat << EOF
+          cat << 'EOF' >> $GITHUB_STEP_SUMMARY
           ```mermaid
           graph LR;
             A[Trigger Workflow Dispatch] --> B{Is it a Tag?};
@@ -20,7 +20,7 @@ jobs:
             D -- Yes --> E[Deploy Branch];
             D -- No --> F[Do Nothing];
           ```
-          EOF >> $GITHUB_STEP_SUMMARY
+          EOF
       - name: Trigger was a tag - Run Deployment of tag ${{ github.ref }}
         # Use the startsWith function to determine if the ref is a tag
         if: ${{ startsWith(github.ref, 'refs/tags/') }}
