@@ -16,16 +16,14 @@ jobs:
           graph LR;
             A[Trigger Workflow Dispatch] --> B{Is it a Tag?};
             B -- Yes --> C[Deploy Tag];
-            B -- No --> D{Is it a Branch?};
-            D -- Yes --> E[Deploy Branch];
-            D -- No --> F[Do Nothing];
+            B -- No --> D[Do Nothing];
           ```
           EOF
       - name: Trigger was a tag - Run Deployment of tag ${{ github.ref }}
         # Use the startsWith function to determine if the ref is a tag
         if: ${{ startsWith(github.ref, 'refs/tags/') }}
         run: echo "Deploying ${{ github.ref }} because it is a tag" >> $GITHUB_STEP_SUMMARY
-      - name: Trigger was a branch - Run Deployment of branch ${{ github.ref }}
-        # Use the startsWith function to determine if the ref is a branch
-        if: ${{ startsWith(github.ref, 'refs/heads/') }}
-        run: echo "Deploying ${{ github.ref }} because it is a branch" >> $GITHUB_STEP_SUMMARY
+      # Showing this as an example for handling branches, disabled in this flow
+      # - name: Trigger was a branch - Run Deployment of branch ${{ github.ref }}
+      #   if: ${{ startsWith(github.ref, 'refs/heads/') }}
+      #   run: echo "Deploying ${{ github.ref }} because it is a branch" >> $GITHUB_STEP_SUMMARY
