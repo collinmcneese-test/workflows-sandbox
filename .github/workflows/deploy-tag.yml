@@ -1,5 +1,3 @@
-# trigger on workflow_dispatch.
-# A "tag" must be specified as part of the dispatch, not a branch
 name: Deploy Tag
 
 on:
@@ -11,11 +9,11 @@ jobs:
     # Optionally, only run this workflow if the ref is a tag
     # if: ${{ startsWith(github.ref, 'refs/tags/') }}
     steps:
-      - name: Run Deployment of tag ${{ github.ref }}
+      - name: Trigger was a tag - Run Deployment of tag ${{ github.ref }}
         # Use the startsWith function to determine if the ref is a tag
         if: ${{ startsWith(github.ref, 'refs/tags/') }}
         run: echo "Deploying ${{ github.ref }}"
-      - name: Run Deployment of branch ${{ github.ref }}
+      - name: Trigger was a branch - Run Deployment of branch ${{ github.ref }}
         # Use the startsWith function to determine if the ref is a branch
         if: ${{ startsWith(github.ref, 'refs/heads/') }}
         run: echo "Deploying ${{ github.ref }}"
