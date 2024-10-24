@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Diagram
         run: |
-          cat <<EOF
+          cat << EOF
           ```mermaid
           graph LR;
             A[Trigger Workflow Dispatch] --> B{Is it a Tag?};
