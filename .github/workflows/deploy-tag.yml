@@ -6,7 +6,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    # Optionally, only run this workflow if the ref is a tag
+    # Optionally, only run this job if the ref is a tag
     # if: ${{ startsWith(github.ref, 'refs/tags/') }}
     steps:
       - name: Trigger was a tag - Run Deployment of tag ${{ github.ref }}
