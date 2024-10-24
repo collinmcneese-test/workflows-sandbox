@@ -20,7 +20,7 @@ outputs:
 runs:
   using: 'composite'
   steps:
-    - run: echo "Running the step: ${{ inputs.step }}"
+    - run: echo "Running the step ${{ inputs.step }}"
       shell: bash
     - run: echo "Step ${{ inputs.step }} complete" >> $GITHUB_STEP_SUMMARY
       shell: bash
