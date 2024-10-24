@@ -1,0 +1,15 @@
+# trigger on workflow_dispatch.
+# A "tag" must be specified as part of the dispatch, not a branch
+on:
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: debug
+        run: |
+          echo ${{ github.event.ref }}
+          echo ${{ github.ref }}
