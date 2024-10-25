@@ -1,4 +1,4 @@
-name: ':mute: Clean Logs'
+name: '🔇 Clean Logs'
 
 on:
   workflow_dispatch:
@@ -17,7 +17,7 @@ jobs:
   # Get a list of all workflow runs for the current repository
   # Loop through each workflow run and delete the runs
   cleanup-runs:
-    if: ${{ inputs.cleanup_logs == true }}
+    if: ${{ inputs.clean_logs == true }}
     runs-on: ubuntu-latest
     permissions:
       actions: write
