@@ -28,13 +28,14 @@ jobs:
           script: |
             const owner = process.env.GITHUB_REPOSITORY.split("/")[0];
             const repo = process.env.GITHUB_REPOSITORY.split("/")[1];
-            const { data: runs } = await github.paginate(github.rest.actions.listWorkflowRunsForRepo({
+            const runs = await github.paginate(github.rest.actions.listWorkflowRunsForRepo({
               owner,
               repo,
               status: "completed",
               per_page: 100
             }));
-            for (const run of runs.workflow_runs) {
+
+            for (const run of runs) {
               await github.rest.actions.deleteWorkflowRun({
                 owner,
                 repo,
