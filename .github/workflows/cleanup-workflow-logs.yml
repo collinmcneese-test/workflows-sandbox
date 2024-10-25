@@ -28,12 +28,12 @@ jobs:
           script: |
             const owner = process.env.GITHUB_REPOSITORY.split("/")[0];
             const repo = process.env.GITHUB_REPOSITORY.split("/")[1];
-            const { data: runs } = await github.rest.actions.listWorkflowRunsForRepo({
+            const { data: runs } = await github.paginate(github.rest.actions.listWorkflowRunsForRepo({
               owner,
               repo,
               status: "completed",
               per_page: 100
-            });
+            }));
             for (const run of runs.workflow_runs) {
               await github.rest.actions.deleteWorkflowRun({
                 owner,
@@ -41,3 +41,12 @@ jobs:
                 run_id: run.id
               });
             }
+  complete:
+    needs:
+      - cleanup-runs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Report rate-limit
+        uses: collinmcneese/actions-rate-limit-reporter@main
+        with:
+          access-token: ${{ secrets.GITHUB_TOKEN }}
