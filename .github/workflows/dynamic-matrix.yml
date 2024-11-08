@@ -16,23 +16,25 @@ on:
     paths:
       - .github/workflows/dynamic-matrix.yml
 
-env:
-  inputs_run: ${{ inputs.run || 'all' }}
-
 permissions:
   contents: read
 
 jobs:
-  debug:
+  process-run:
     runs-on: ubuntu-latest
+    outputs:
+      run: ${{ steps.set-run.outputs.run }}
     steps:
-      - run: |
-          echo "inputs_run: ${{ env.inputs_run }}"
+      - name: Set Run
+        id: set-run
+        run: |
+          echo "run=${{ inputs.run || 'all' }}" >> $GITHUB_OUTPUT
 
   outputs-static:
+    needs: process-run
     if: |
-      github.env.inputs_run == 'outputs-static' ||
-      github.env.inputs_run == 'all'
+      needs.process-run.outputs.run == 'outputs-static' ||
+      needs.process-run.outputs.run == 'all'
     runs-on: ubuntu-latest
     outputs:
       json-output: ${{ steps.set-output.outputs.json-output }}
@@ -70,9 +72,10 @@ jobs:
           echo hello
 
   outputs-array:
+    needs: process-run
     if: |
-      github.env.inputs_run == 'outputs-array' ||
-      github.env.inputs_run == 'all'
+      needs.process-run.outputs.run == 'outputs-array' ||
+      needs.process-run.outputs.run == 'all'
     runs-on: ubuntu-latest
     outputs:
       random-number: ${{ steps.random-number.outputs.result }}
@@ -107,9 +110,10 @@ jobs:
         run: echo ${{ matrix.iteration }} >> $GITHUB_STEP_SUMMARY
 
   output-object:
+    needs: process-run
     if: |
-      github.env.inputs_run == 'output-object' ||
-      github.env.inputs_run == 'all'
+      needs.process-run.outputs.run == 'output-object' ||
+      needs.process-run.outputs.run == 'all'
     runs-on: ubuntu-latest
     outputs:
       random-object: ${{ steps.random-object.outputs.result }}
