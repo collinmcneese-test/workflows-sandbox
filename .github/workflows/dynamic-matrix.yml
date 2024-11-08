@@ -151,6 +151,7 @@ jobs:
         run: echo ${{ matrix.iteration.name }}
 
   matrix-object-reusable:
+    name: matrix-object-reusable-${{ matrix.iteration.name }}-${{ matrix.iteration.value }}
     needs: output-object
     strategy:
       matrix:
