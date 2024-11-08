@@ -17,7 +17,7 @@ on:
       - .github/workflows/dynamic-matrix.yml
 
 env:
-  inputs_run: ${{ github.event.inputs.run || 'all' }}
+  inputs_run: ${{ inputs.run || 'all' }}
 
 permissions:
   contents: read
