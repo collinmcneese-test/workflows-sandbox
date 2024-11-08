@@ -10,6 +10,14 @@ on:
           - matrix-array
           - matrix-object
           - all
+  pull_request:
+    branches:
+      - main
+    paths:
+      - .github/workflows/dynamic-matrix.yml
+
+env:
+  inputs_run: ${{ github.event.inputs.run || 'all' }}
 
 permissions:
   contents: read
@@ -17,8 +25,8 @@ permissions:
 jobs:
   outputs-static:
     if: |
-      inputs.run == 'outputs-static' ||
-      inputs.run == 'all'
+      github.env.inputs_run == 'outputs-static' ||
+      github.env.inputs_run == 'all'
     runs-on: ubuntu-latest
     outputs:
       json-output: ${{ steps.set-output.outputs.json-output }}
@@ -57,8 +65,8 @@ jobs:
 
   outputs-array:
     if: |
-      inputs.run == 'outputs-array' ||
-      inputs.run == 'all'
+      github.env.inputs_run == 'outputs-array' ||
+      github.env.inputs_run == 'all'
     runs-on: ubuntu-latest
     outputs:
       random-number: ${{ steps.random-number.outputs.result }}
@@ -94,8 +102,8 @@ jobs:
 
   output-object:
     if: |
-      inputs.run == 'output-object' ||
-      inputs.run == 'all'
+      github.env.inputs_run == 'output-object' ||
+      github.env.inputs_run == 'all'
     runs-on: ubuntu-latest
     outputs:
       random-object: ${{ steps.random-object.outputs.result }}
