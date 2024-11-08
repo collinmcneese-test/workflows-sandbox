@@ -23,6 +23,12 @@ permissions:
   contents: read
 
 jobs:
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "inputs_run: ${{ env.inputs_run }}"
+
   outputs-static:
     if: |
       github.env.inputs_run == 'outputs-static' ||
