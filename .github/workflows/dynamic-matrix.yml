@@ -10,15 +10,31 @@ on:
           - matrix-array
           - matrix-object
           - all
+  pull_request:
+    branches:
+      - main
+    paths:
+      - .github/workflows/dynamic-matrix.yml
 
 permissions:
   contents: read
 
 jobs:
+  process-run:
+    runs-on: ubuntu-latest
+    outputs:
+      run: ${{ steps.set-run.outputs.run }}
+    steps:
+      - name: Set Run
+        id: set-run
+        run: |
+          echo "run=${{ inputs.run || 'all' }}" >> $GITHUB_OUTPUT
+
   outputs-static:
+    needs: process-run
     if: |
-      inputs.run == 'outputs-static' ||
-      inputs.run == 'all'
+      needs.process-run.outputs.run == 'outputs-static' ||
+      needs.process-run.outputs.run == 'all'
     runs-on: ubuntu-latest
     outputs:
       json-output: ${{ steps.set-output.outputs.json-output }}
@@ -32,6 +48,7 @@ jobs:
           echo "json-output=${json}" >> $GITHUB_OUTPUT
 
   run-with-json:
+    name: run-with-json-${{ matrix.iteration.directory }}-${{ matrix.iteration.artifact }}
     runs-on: ubuntu-latest
     needs: outputs-static
     strategy:
@@ -56,9 +73,10 @@ jobs:
           echo hello
 
   outputs-array:
+    needs: process-run
     if: |
-      inputs.run == 'outputs-array' ||
-      inputs.run == 'all'
+      needs.process-run.outputs.run == 'outputs-array' ||
+      needs.process-run.outputs.run == 'all'
     runs-on: ubuntu-latest
     outputs:
       random-number: ${{ steps.random-number.outputs.result }}
@@ -93,9 +111,10 @@ jobs:
         run: echo ${{ matrix.iteration }} >> $GITHUB_STEP_SUMMARY
 
   output-object:
+    needs: process-run
     if: |
-      inputs.run == 'output-object' ||
-      inputs.run == 'all'
+      needs.process-run.outputs.run == 'output-object' ||
+      needs.process-run.outputs.run == 'all'
     runs-on: ubuntu-latest
     outputs:
       random-object: ${{ steps.random-object.outputs.result }}
@@ -132,6 +151,7 @@ jobs:
         run: echo ${{ matrix.iteration.name }}
 
   matrix-object-reusable:
+    name: matrix-object-reusable-${{ matrix.iteration.name }}-${{ matrix.iteration.value }}
     needs: output-object
     strategy:
       matrix:
