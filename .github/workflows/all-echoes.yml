@@ -19,6 +19,6 @@ jobs:
     - echo3
     runs-on: ubuntu-latest
     steps:
-    - uses: collinmcneese/actions-rate-limit-reporter@v2.0.1
+    - uses: collinmcneese/actions-rate-limit-reporter@v2.0.2
       with:
         access-token: ${{ secrets.GITHUB_TOKEN }}
