@@ -51,14 +51,21 @@ jobs:
     name: run-with-json-${{ matrix.iteration.directory }}-${{ matrix.iteration.artifact }}
     runs-on: ubuntu-latest
     needs: outputs-static
+    outputs:
+      json-output: ${{ steps.set-content.outputs.output }}
     strategy:
       matrix:
         iteration: ${{ fromJson(needs.outputs-static.outputs.json-output) }}
     steps:
       - uses: actions/checkout@v4
-      - run: |
+      - name: Set Contents
+        id: set-content
+        run: |
           mkdir -p ${{ matrix.iteration.directory }}
           echo "these are some contents" > ${{ matrix.iteration.directory }}/${{ matrix.iteration.artifact }}.txt
+          cat << EOF >> $GITHUB_OUTPUT
+          echo "output='$(cat ${{ matrix.iteration.directory }}/${{ matrix.iteration.artifact }}.txt)'"
+          EOF
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
         with:
