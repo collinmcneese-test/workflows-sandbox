@@ -21,7 +21,7 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const output = ${{ matrix.iteration-name }}
+            const output = ${{ steps.define-output.outputs.output }};
             core.setOutput('matrix-output-${{ matrix.iteration-name }}', output)
   matrix-consumer:
     needs: matrix-job
