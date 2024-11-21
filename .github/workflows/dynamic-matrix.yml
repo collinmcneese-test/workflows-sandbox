@@ -63,7 +63,7 @@ jobs:
         run: |
           mkdir -p ${{ matrix.iteration.directory }}
           echo "these are some contents" > ${{ matrix.iteration.directory }}/${{ matrix.iteration.artifact }}.txt
-          cat echo "output='$(cat ${{ matrix.iteration.directory }}/${{ matrix.iteration.artifact }}.txt)'" >> $GITHUB_OUTPUT
+          cat echo "output=${{ matrix.iteration.directory }}" >> $GITHUB_OUTPUT
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
         with:
