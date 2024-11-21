@@ -1,0 +1,26 @@
+name: Matrix Outputs
+
+on:
+  pull_request:
+    paths:
+      - .github/workflows/matrix-outputs.yml
+  workflow_dispatch:
+
+jobs:
+  matrix-job:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        iteration-name: [ 'first', 'second', 'third' ]
+    name: matrix-job-${{ matrix.iteration-name }}
+    outputs:
+      matrix-output: ${{ steps.set-output.outputs.output }}
+    steps:
+      - name: Set Output
+        id: set-output
+        run: echo "output=${{ matrix.iteration-name }}" >> $GITHUB_OUTPUT
+  matrix-consumer:
+    needs: matrix-job
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "The output was ${{ needs.matrix-job.outputs.matrix-output }}"
