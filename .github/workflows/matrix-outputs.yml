@@ -23,8 +23,6 @@ jobs:
     needs: matrix-job
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/github-script@v7
-        with:
-          script: |
-            const output = needs.matrix-job.outputs;
-            console.log(`The matrix output is: ${output.matrix-output}`);
+      - run: |
+          echo "output 1 ${{ needs.matrix-job.outputs }}"
+          echo "output 2 ${{ needs.matrix-job.outputs.matrix-output }}"
