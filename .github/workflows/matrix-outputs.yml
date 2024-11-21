@@ -14,7 +14,7 @@ jobs:
         iteration-name: [ 'first', 'second', 'third' ]
     name: matrix-job-${{ matrix.iteration-name }}
     outputs:
-      matrix-output: ${{ steps.set-output.outputs.output }}
+      matrix-output-${{ matrix.iteration-name }}: ${{ steps.set-output.outputs.output }}
     steps:
       - name: Set Output
         id: set-output
