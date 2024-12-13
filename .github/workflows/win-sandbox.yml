@@ -12,5 +12,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: environment info
         run: echo $env:PATH
+      - name: get-process
+        run: Get-Process
       - name: file info
         run: ls d:/actions-runner
