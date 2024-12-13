@@ -12,7 +12,11 @@ jobs:
       - uses: actions/checkout@v4
       - name: environment info
         run: echo $env:PATH
-      - name: get-process
-        run: Get-Process -name "Runner*" | Select-Object Path
-      - name: file info
-        run: ls d:/actions-runner
+      - name: runner process info
+        run: |
+          # Find the directory of the runner using get-process
+          $runnerDir = $(Get-Process -name "Runner*" | Select-Object Path).Path
+          # Update runnerDir to strip the bin dir and executable name
+          $runnerDir = $runnerDir -replace "bin\\Runner.*", ""
+          Write-Output "Runner directory: $runnerDir"
+          ls $runnerDir
