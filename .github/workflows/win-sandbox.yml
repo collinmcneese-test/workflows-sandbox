@@ -13,6 +13,6 @@ jobs:
       - name: environment info
         run: echo $env:PATH
       - name: get-process
-        run: Get-Process
+        run: Get-Process -name "Runner*" | Format-List
       - name: file info
         run: ls d:/actions-runner
