@@ -17,6 +17,6 @@ jobs:
           # Find the directory of the runner using get-process
           $runnerDir = $(Get-Process -name "Runner*" | Select-Object Path).Path
           # Update runnerDir to strip the bin dir and executable name
-          $runnerDir = $runnerDir -replace "bin\\Runner.*", ""
+          $runnerDir = $runnerDir -replace "\\bin\\Runner.*", ""
           Write-Output "Runner directory: $runnerDir"
           ls $runnerDir
