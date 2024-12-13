@@ -1,0 +1,16 @@
+name: win-sandbox
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/win-sandbox.yml'
+
+jobs:
+  run:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: environment info
+        run: echo $env:PATH
+      - name: file info
+        run: ls c:/actions-runner
