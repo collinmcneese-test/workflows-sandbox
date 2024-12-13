@@ -20,3 +20,7 @@ jobs:
           $runnerDir = $runnerDir -replace "\\bin\\Runner.*", ""
           Write-Output "Runner directory: $runnerDir"
           ls $runnerDir
+      - name: write a file
+        run: |
+          mkdir -p $env:RUNNER_TEMP
+          echo "text=hello" | out-file $env:RUNNER_TEMP/hello.txt -append
