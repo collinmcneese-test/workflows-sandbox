@@ -13,4 +13,4 @@ jobs:
       - name: environment info
         run: echo $env:PATH
       - name: file info
-        run: ls c:/actions-runner
+        run: ls d:/actions-runner
