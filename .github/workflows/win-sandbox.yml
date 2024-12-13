@@ -22,6 +22,5 @@ jobs:
           ls $runnerDir
       - name: write a file
         run: |
-          mkdir -p $env:RUNNER_TEMP
           echo "text=hello" | out-file $env:RUNNER_TEMP/hello.txt -append
           get-content $env:RUNNER_TEMP/hello.txt
