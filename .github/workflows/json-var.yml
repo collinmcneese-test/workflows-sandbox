@@ -6,10 +6,18 @@ on:
       - '.github/workflows/json-var.yml'
   workflow_dispatch:
 
+permissions: {}
+
 jobs:
   json:
     runs-on: ubuntu-latest
     steps:
-      - run: echo '${{ vars.jsondata }}'
-      - run: echo "${{ toJSON(vars.jsondata).key1 }}"
-      - run: echo "${{ fromJSON(vars.jsondata).key1 }}"
+      - run: echo "$JSONDATA"
+        env:
+          JSONDATA: ${{ vars.jsondata }}
+      - run: echo "$JSONDATA"
+        env:
+          JSONDATA: ${{ toJSON(vars.jsondata).key1 }}
+      - run: echo "$JSONDATA"
+        env:
+          JSONDATA: ${{ fromJSON(vars.jsondata).key1 }}
