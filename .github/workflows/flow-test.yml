@@ -20,6 +20,8 @@ on:
         default: false
         type: boolean
 
+permissions: {}
+
 jobs:
   plan:
     if: inputs.destroy == false
