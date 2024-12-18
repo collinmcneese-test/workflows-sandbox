@@ -2,6 +2,9 @@ name: issue-workflow-called
 
 on:
   workflow_call:
+  pull_request:
+    paths:
+      - '.github/workflows/issue-workflow-called.yml'
 
 permissions:
   issues: read
@@ -13,5 +16,8 @@ jobs:
       - uses: actions/github-script@v7
         with:
           script: |
-            console.log(${{ toJson(github.event) }})
-            console.log(${{ toJson(github.context) }})
+            console.log(process.env.JSON_GITHUB_EVENT)
+            console.log(process.env.JSON_GITHUB_CONTEXT)
+        env:
+          JSON_GITHUB_EVENT: ${{ toJson(github.event) }}
+          JSON_GITHUB_CONTEXT: ${{ toJson(github.context) }}
