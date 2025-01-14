@@ -1,0 +1,26 @@
+name: win-sandbox
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/win-sandbox.yml'
+
+jobs:
+  run:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: environment info
+        run: echo $env:PATH
+      - name: runner process info
+        run: |
+          # Find the directory of the runner using get-process
+          $runnerDir = $(Get-Process -name "Runner*" | Select-Object Path).Path
+          # Update runnerDir to strip the bin dir and executable name
+          $runnerDir = $runnerDir -replace "\\bin\\Runner.*", ""
+          Write-Output "Runner directory: $runnerDir"
+          ls $runnerDir
+      - name: write a file
+        run: |
+          echo "text=hello" | out-file $env:RUNNER_TEMP/hello.txt -append
+          get-content $env:RUNNER_TEMP/hello.txt
