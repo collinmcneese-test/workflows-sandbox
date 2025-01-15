@@ -5,6 +5,9 @@ on:
     paths:
       - '.github/workflows/win-sandbox.yml'
 
+permissions:
+  contents: read
+
 jobs:
   run:
     runs-on: windows-latest
