@@ -101,7 +101,7 @@ jobs:
       - name: docker ps
         run: docker ps
       - uses: actions/checkout@v5
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: 20
       - run: which node

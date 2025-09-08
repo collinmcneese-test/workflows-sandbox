@@ -20,7 +20,7 @@ jobs:
     steps:
       - name: Analyze jobs
         id: job-analysis
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             let response = [];
@@ -48,7 +48,7 @@ jobs:
 
       - name: Analyze Check Runs
         id: check-run-analysis
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           result-encoding: string
           script: |
@@ -76,7 +76,7 @@ jobs:
 
       - name: Retry Workflow
         if: steps.check-run-analysis.outputs.result == 'true'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const response = await github.rest.actions.reRunWorkflow({

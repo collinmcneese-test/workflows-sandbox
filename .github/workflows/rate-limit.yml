@@ -16,7 +16,7 @@ jobs:
     # Parse rate limit output from fetch-rate-limit step
     # Render in markdown table format, and set as output for use in next step
     - id: parse-rate-limit
-      uses: actions/github-script@v7
+      uses: actions/github-script@v8
       env:
         RATE_LIMIT_RESULT: ${{ steps.fetch-rate-limit.outputs.result }}
       with:
