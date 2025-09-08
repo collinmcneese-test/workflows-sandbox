@@ -82,7 +82,7 @@ jobs:
       random-number: ${{ steps.random-number.outputs.result }}
     steps:
       - id: random-number
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const min = 1;
@@ -120,7 +120,7 @@ jobs:
       random-object: ${{ steps.random-object.outputs.result }}
     steps:
       - id: random-object
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const min = 1;
