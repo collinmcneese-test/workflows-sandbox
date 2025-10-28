@@ -9,4 +9,4 @@ jobs:
       run: curl -vv https://www.youtube.com/watch?v=-7cNN1L0-4M
     - name: Setup yt-dlp
       uses: AnimMouse/setup-yt-dlp@v3
-    - run: yt-dlp https://www.youtube.com/watch?v=7cNN1L0-4M
+    - run: yt-dlp https://www.youtube.com/watch?v=-7cNN1L0-4M
