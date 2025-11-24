@@ -39,7 +39,7 @@ jobs:
     outputs:
       json-output: ${{ steps.set-output.outputs.json-output }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - id: set-output
         name: Set JSON Output
         run: |
@@ -55,7 +55,7 @@ jobs:
       matrix:
         iteration: ${{ fromJson(needs.outputs-static.outputs.json-output) }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - run: |
           mkdir -p ${{ matrix.iteration.directory }}
           echo "these are some contents" > ${{ matrix.iteration.directory }}/${{ matrix.iteration.artifact }}.txt
