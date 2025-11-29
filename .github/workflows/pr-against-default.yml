@@ -7,14 +7,14 @@ permissions: {}
 
 jobs:
   env:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
     - run: |
         echo env-vars
         env
   default-branch-pr:
     if: ${{ github.event.repository.default_branch == github.event.pull_request.base.ref }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
     - name: PR to Default Branch
       run: |
@@ -22,7 +22,7 @@ jobs:
         echo "${{ github.event.repository.default_branch }} -> ${{ github.event.pull_request.base.ref }}" >> $GITHUB_STEP_SUMMARY
   not-default-branch-pr:
     if: ${{ github.event.repository.default_branch != github.event.pull_request.base.ref }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
     - name: PR to Non-Default Branch
       run: |
