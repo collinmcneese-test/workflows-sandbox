@@ -7,7 +7,7 @@ permissions: {}
 
 jobs:
   notify-success:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
       - name: step1
         run: echo "success"
@@ -17,7 +17,7 @@ jobs:
         if: always()
         run: echo "notify result - ${{ job.status }}" >> $GITHUB_STEP_SUMMARY
   notify-failure:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
       - name: step1
         run: echo "failure" && exit 1

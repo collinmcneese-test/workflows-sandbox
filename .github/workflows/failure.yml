@@ -7,21 +7,21 @@ permissions: {}
 
 jobs:
   job1:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
       - run: sleep 5 ; exit 1
   job2:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
       - run: sleep 30
       - run: sleep 5
   job3:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
       - run: sleep 30
       - run: sleep 5
   job4:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     needs:
     - job3
     steps:

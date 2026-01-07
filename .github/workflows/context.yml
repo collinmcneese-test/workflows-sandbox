@@ -4,6 +4,9 @@ on:
   workflow_dispatch:
   issues: 
     types: [opened, edited]
+  pull_request:
+    paths:
+      - '.github/workflows/context.yml'
 
 permissions:
   issues: read
@@ -18,7 +21,7 @@ jobs:
     env:
       item3: item1value
       ITEM4: item2value
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
     - run: env | sort
     - uses: actions/github-script@v8

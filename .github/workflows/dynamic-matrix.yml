@@ -21,7 +21,7 @@ permissions:
 
 jobs:
   process-run:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     outputs:
       run: ${{ steps.set-run.outputs.run }}
     steps:
@@ -35,7 +35,7 @@ jobs:
     if: |
       needs.process-run.outputs.run == 'outputs-static' ||
       needs.process-run.outputs.run == 'all'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     outputs:
       json-output: ${{ steps.set-output.outputs.json-output }}
     steps:
@@ -49,7 +49,7 @@ jobs:
 
   run-with-json:
     name: run-with-json-${{ matrix.iteration.directory }}-${{ matrix.iteration.artifact }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     needs: outputs-static
     strategy:
       matrix:
@@ -66,7 +66,7 @@ jobs:
           path: ${{ matrix.iteration.directory }}
 
   after-run-with-json:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     needs: run-with-json
     steps:
       - run: |
@@ -77,7 +77,7 @@ jobs:
     if: |
       needs.process-run.outputs.run == 'outputs-array' ||
       needs.process-run.outputs.run == 'all'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     outputs:
       random-number: ${{ steps.random-number.outputs.result }}
     steps:
@@ -102,7 +102,7 @@ jobs:
 
   matrix-array:
     needs: outputs-array
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     strategy:
       matrix:
         iteration: ${{ fromJson(needs.outputs-array.outputs.random-number) }}
@@ -115,7 +115,7 @@ jobs:
     if: |
       needs.process-run.outputs.run == 'output-object' ||
       needs.process-run.outputs.run == 'all'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     outputs:
       random-object: ${{ steps.random-object.outputs.result }}
     steps:
@@ -142,7 +142,7 @@ jobs:
 
   matrix-object:
     needs: output-object
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     strategy:
       matrix:
         iteration: ${{ fromJson(needs.output-object.outputs.random-object) }}
@@ -169,7 +169,7 @@ jobs:
       - matrix-array
       - matrix-object
       - matrix-object-reusable
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
       - name: Report rate-limit
         uses: collinmcneese/actions-rate-limit-reporter@main
