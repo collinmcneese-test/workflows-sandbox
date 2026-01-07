@@ -4,6 +4,9 @@ on:
   workflow_dispatch:
   issues: 
     types: [opened, edited]
+  pull_request:
+    paths:
+      - '.github/workflows/context.yml'
 
 permissions:
   issues: read
