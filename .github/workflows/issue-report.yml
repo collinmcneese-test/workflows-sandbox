@@ -71,6 +71,14 @@ jobs:
               });
               }
 
+            if (output.length === 0) {
+              console.log('No issues found in the last 7 days');
+              await core.summary
+                .addRaw('No issues found in the last 7 days')
+                .write();
+              return;
+            }
+
             const markdown = markdownTable(output);
             console.log(output);
             console.log(markdown);
