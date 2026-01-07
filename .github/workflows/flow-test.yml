@@ -25,7 +25,7 @@ permissions: {}
 jobs:
   plan:
     if: inputs.destroy == false
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     outputs:
       require_import: ${{ steps.require_import.outputs.require_import }}
     steps:
@@ -47,7 +47,7 @@ jobs:
   import:
     needs: plan
     if: needs.plan.outputs.require_import == 'true'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
     - run: echo "Importing the infrastructure"
     - run: echo "Import complete" >> $GITHUB_STEP_SUMMARY
@@ -57,14 +57,14 @@ jobs:
       - plan
       - import
     if: (needs.plan.outputs.require_import == true && needs.import.result == 'success') || (always() && needs.plan.result == 'success')
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
     - run: echo "Applying the infrastructure"
     - run: echo "Apply complete" >> $GITHUB_STEP_SUMMARY
 
   destroy:
     if: inputs.destroy == true
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
     - run: echo "Destroying the infrastructure"
     - run: echo "Destroy complete" >> $GITHUB_STEP_SUMMARY

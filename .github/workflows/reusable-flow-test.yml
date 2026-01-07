@@ -20,27 +20,27 @@ permissions: {}
 jobs:
   plan:
     if: inputs.step == 'plan'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
     - run: echo "Plan complete" >> $GITHUB_STEP_SUMMARY
 
   import:
     if: inputs.step == 'import'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
     - run: echo "Importing the infrastructure"
     - run: echo "Import complete" >> $GITHUB_STEP_SUMMARY
 
   apply:
     if: inputs.step == 'apply'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
     - run: echo "Applying the infrastructure"
     - run: echo "Apply complete" >> $GITHUB_STEP_SUMMARY
 
   destroy:
     if: inputs.step == 'destroy'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
     - run: echo "Destroying the infrastructure"
     - run: echo "Destroy complete" >> $GITHUB_STEP_SUMMARY

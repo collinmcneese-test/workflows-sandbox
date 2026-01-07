@@ -8,7 +8,7 @@ permissions: {}
 
 jobs:
   labeled:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     if: contains(github.event.label.name, 'duplicate')
     #if: github.event.label.name == 'bug'
     steps:

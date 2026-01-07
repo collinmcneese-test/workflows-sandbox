@@ -9,7 +9,7 @@ permissions: {}
 jobs:
   # use github-script to output the github context
   output:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
     - name: output
       run: |

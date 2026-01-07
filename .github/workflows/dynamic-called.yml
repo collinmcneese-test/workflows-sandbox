@@ -17,7 +17,7 @@ permissions:
 
 jobs:
   reusable-workflow:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     name: ${{ github.event.inputs.name }} / ${{ github.event.inputs.value }}
     steps:
       - name: Reusable Workflow - ${{ github.event.inputs.name }}
