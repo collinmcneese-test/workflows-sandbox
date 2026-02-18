@@ -8,4 +8,4 @@ env:
 
 jobs:
   uses-dynamic:
-    uses: ${{ env.workflow }}
+    uses: ${{ vars.USESDYNAMIC }}
