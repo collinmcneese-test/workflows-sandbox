@@ -60,7 +60,7 @@ jobs:
           mkdir -p ${{ matrix.iteration.directory }}
           echo "these are some contents" > ${{ matrix.iteration.directory }}/${{ matrix.iteration.artifact }}.txt
       - name: Upload Build Artifact
-        uses: actions/upload-artifact@v7.0.0
+        uses: actions/upload-artifact@v7.0.1
         with:
           name: ${{ matrix.iteration.artifact }}
           path: ${{ matrix.iteration.directory }}
@@ -82,7 +82,7 @@ jobs:
       random-number: ${{ steps.random-number.outputs.result }}
     steps:
       - id: random-number
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           script: |
             const min = 1;
@@ -120,7 +120,7 @@ jobs:
       random-object: ${{ steps.random-object.outputs.result }}
     steps:
       - id: random-object
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           script: |
             const min = 1;
