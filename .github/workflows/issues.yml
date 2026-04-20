@@ -14,7 +14,7 @@ jobs:
     - name: output
       run: |
         echo ${{ toJSON(github) }}
-    - uses: actions/github-script@v8
+    - uses: actions/github-script@v9
       with:
         script: |
           console.log(github.context)
