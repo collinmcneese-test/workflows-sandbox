@@ -62,7 +62,7 @@ jobs:
       # - run: cat /var/run/secrets/kubernetes.io/serviceaccount/token
       - name: Set up Vault
         id: vault
-        uses: hashicorp/vault-action@v3
+        uses: hashicorp/vault-action@v4
         with:
           url: http://localhost:8200
           token: root
