@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: access check
         id: access-check
-        uses: actions/github-script@v9
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
         # Check if able to approve PRs via GitHub API
         # Return true if able to approve, false otherwise
         with:
@@ -28,7 +28,7 @@ jobs:
             return (permissions && permissions.pull) ? permissions.pull : false;
       - name: Add comment if no access
         if: steps.access-check.outputs.result == 'false'
-        uses: actions/github-script@v9
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
@@ -41,7 +41,7 @@ jobs:
       - name: Dependabot metadata
         if: steps.access-check.outputs.result == 'true'
         id: metadata
-        uses: dependabot/fetch-metadata@v3
+        uses: dependabot/fetch-metadata@25dd0e34f4fe68f24cc83900b1fe3fe149efef98 # v3
         with:
           github-token: "${{ secrets.GITHUB_TOKEN }}"
       - name: Approve a PR

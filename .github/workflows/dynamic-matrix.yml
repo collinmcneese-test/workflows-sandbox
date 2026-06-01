@@ -39,7 +39,7 @@ jobs:
     outputs:
       json-output: ${{ steps.set-output.outputs.json-output }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
       - id: set-output
         name: Set JSON Output
         run: |
@@ -55,12 +55,12 @@ jobs:
       matrix:
         iteration: ${{ fromJson(needs.outputs-static.outputs.json-output) }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
       - run: |
           mkdir -p ${{ matrix.iteration.directory }}
           echo "these are some contents" > ${{ matrix.iteration.directory }}/${{ matrix.iteration.artifact }}.txt
       - name: Upload Build Artifact
-        uses: actions/upload-artifact@v7.0.1
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: ${{ matrix.iteration.artifact }}
           path: ${{ matrix.iteration.directory }}
@@ -82,7 +82,7 @@ jobs:
       random-number: ${{ steps.random-number.outputs.result }}
     steps:
       - id: random-number
-        uses: actions/github-script@v9
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
         with:
           script: |
             const min = 1;
@@ -120,7 +120,7 @@ jobs:
       random-object: ${{ steps.random-object.outputs.result }}
     steps:
       - id: random-object
-        uses: actions/github-script@v9
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
         with:
           script: |
             const min = 1;
@@ -172,6 +172,6 @@ jobs:
     runs-on: ubuntu-slim
     steps:
       - name: Report rate-limit
-        uses: collinmcneese/actions-rate-limit-reporter@main
+        uses: collinmcneese/actions-rate-limit-reporter@98664969e4e6e67a03ebd07a274a826a931c9fb0 # main
         with:
           access-token: ${{ secrets.GITHUB_TOKEN }}

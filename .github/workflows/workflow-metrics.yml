@@ -10,14 +10,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
       - name: Date Set
         id: date-set
         run: |
           echo "start_date=$(date --date '7 days ago' +'%Y-%m-%d')" >> "${GITHUB_OUTPUT}"
           echo "end_date=$(date +'%Y-%m-%d')" >> "${GITHUB_OUTPUT}"
       - name: Call workflow-runs action
-        uses: kittychiu/workflow-metrics@v0.4.7
+        uses: kittychiu/workflow-metrics@d97f76b4088fe3903dd0dc96256400988389321a # v0.4.7
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OWNER_NAME: ${{ github.event.repository.owner.login }}

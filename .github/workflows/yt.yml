@@ -8,5 +8,5 @@ jobs:
     - name: test dl
       run: curl -vv https://www.youtube.com/watch?v=-7cNN1L0-4M
     - name: Setup yt-dlp
-      uses: AnimMouse/setup-yt-dlp@v3
+      uses: AnimMouse/setup-yt-dlp@d9487585ee9793f15ccf6f3bcd326a95d0dac1b5 # v3
     - run: yt-dlp https://www.youtube.com/watch?v=-7cNN1L0-4M
