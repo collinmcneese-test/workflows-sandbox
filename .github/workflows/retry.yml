@@ -20,7 +20,7 @@ jobs:
     steps:
       - name: Analyze jobs
         id: job-analysis
-        uses: actions/github-script@v9
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
         with:
           script: |
             let response = [];
@@ -48,7 +48,7 @@ jobs:
 
       - name: Analyze Check Runs
         id: check-run-analysis
-        uses: actions/github-script@v9
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
         with:
           result-encoding: string
           script: |
@@ -76,7 +76,7 @@ jobs:
 
       - name: Retry Workflow
         if: steps.check-run-analysis.outputs.result == 'true'
-        uses: actions/github-script@v9
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
         with:
           script: |
             const response = await github.rest.actions.reRunWorkflow({
@@ -88,7 +88,7 @@ jobs:
             return response;
 
       - name: Report rate-limit
-        uses: collinmcneese/actions-rate-limit-reporter@main
+        uses: collinmcneese/actions-rate-limit-reporter@98664969e4e6e67a03ebd07a274a826a931c9fb0 # main
         with:
           access-token: ${{ secrets.GITHUB_TOKEN }}
 

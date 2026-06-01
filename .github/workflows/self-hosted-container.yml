@@ -38,7 +38,7 @@ jobs:
           echo "fetching /home/runner/externals"
           ls -al /home/runner/externals || echo "no /home/runner/externals"
       - name: Check out the repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
 
   test-with-job-container:
     runs-on: arc-runner-set-collinmcneese-test
@@ -58,11 +58,11 @@ jobs:
           VAULT_DEV_ROOT_TOKEN_ID: root
     steps:
       - name: Check out the repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
       # - run: cat /var/run/secrets/kubernetes.io/serviceaccount/token
       - name: Set up Vault
         id: vault
-        uses: hashicorp/vault-action@v4
+        uses: hashicorp/vault-action@892a26828f195e65540a40b4768ae4571f51ebfc # v4
         with:
           url: http://localhost:8200
           token: root
@@ -100,8 +100,8 @@ jobs:
     steps:
       - name: docker ps
         run: docker ps
-      - uses: actions/checkout@v6
-      - uses: actions/setup-node@v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
         with:
           node-version: 20
       - run: which node
